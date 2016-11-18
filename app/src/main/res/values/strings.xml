@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Snake</string>
+    <string name="log_in">Podaj swoj login</string>
+    <string name="give_IP">Adres IP serwera</string>
+    <!--<string name="server_IP">http://192.168.0.178:3911/wonsz</string>-->
+    <string name="login_button">Zaloguj sie</string>
+    <string name="logged">Zalogowany!</string>
+    <string name="change_login">Login zajety</string>
+    <string name="pause">Pauza</string>
+    <string name="start">Start</string>
+
+
+    <!--teksty na umarcie-->
+    <string name="click_start">Kliknij START</string>
+    <string name="failure">Umarles!</string>
+
+    <integer name="up">3</integer>
+    <integer name="down">1</integer>
+    <integer name="left">4</integer>
+    <integer name="right">2</integer>
+    <integer name="no_direction">0</integer>
+
+
+
+</resources>
