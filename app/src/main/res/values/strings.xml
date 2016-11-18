@@ -14,11 +14,11 @@
     <string name="click_start">Kliknij START</string>
     <string name="failure">Umarles!</string>
 
-    <integer name="up">3</integer>
-    <integer name="down">1</integer>
-    <integer name="left">4</integer>
-    <integer name="right">2</integer>
-    <integer name="no_direction">0</integer>
+    <!--<integer name="up">3</integer>-->
+    <!--<integer name="down">1</integer>-->
+    <!--<integer name="left">4</integer>-->
+    <!--<integer name="right">2</integer>-->
+    <!--<integer name="no_direction">0</integer>-->
 
 
 

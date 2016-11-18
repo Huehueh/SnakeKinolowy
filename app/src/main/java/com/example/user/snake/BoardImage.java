@@ -19,54 +19,50 @@ import java.util.Deque;
  * Created by user on 08.11.2016.
  */
 public class BoardImage extends View{
-
-    ArrayList<Point> snakePositions;
-    Point[] enemiesPositions;
-    Point meal;
     Paint textPaint;
-    Box boardBox, snakeBox, mealBox, enemyBox, headBox;
+    Box box, boardBox;
     static  int width;
     public GameFragment gameFragment;
     Context context;
 
-    public BoardImage(Context context)
+    public BoardImage(Context context, Point boardSize)
     {
         super(context);
+        this.context = context;
+        createBoardParameters(boardSize);
+    }
 
-        boardBox = new Box(Color.BLACK);
-        snakeBox = new Box(Color.WHITE);
-        mealBox = new Box(Color.RED);
-        enemyBox = new Box(Color.BLUE);
-        headBox = new Box(Color.GRAY);
-        setFocusable(true);
-        requestFocus();
+    public BoardImage(GameFragment gameFragment, Context context, Point boardSize)
+    {
+        this(context, boardSize);
+        this.gameFragment = gameFragment;
+    }
 
+    private void createBoardParameters(Point boardSize)
+    {
+        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        android.graphics.Point screenSize = new android.graphics.Point();
+        display.getSize(screenSize);
+        if(screenSize.x < screenSize.y)   {
+            width = screenSize.x;
+            Box.mnoznik = (int)Math.floor((double)width/boardSize.getX());
+        }
+        else {
+            width = screenSize.y;
+            Box.mnoznik = (int)Math.floor((double)width/boardSize.getY());
+        }
+        boardBox.setBounds(0, 0, boardSize.getX(), boardSize.getY());
+        createTextStyle();
+    }
+
+    private void createTextStyle()
+    {
         textPaint = new Paint();
         textPaint.setColor(Color.GRAY);
         textPaint.setStyle(Paint.Style.FILL);
         textPaint.setTextAlign(Paint.Align.CENTER);
-    }
-
-    public static BoardImage newInstance(Context context, int x, int y)
-    {
-        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = manager.getDefaultDisplay();
-        android.graphics.Point point = new android.graphics.Point();
-        display.getSize(point);
-        if(point.x < point.y)   {
-            width = point.x;
-            Box.mnoznik = (int)(width/x);
-        }
-        else {
-            width = point.y;
-            Box.mnoznik = (int)(width/y);
-        }
-
-        BoardImage boardImage = new BoardImage(context);
-        boardImage.context = context;
-        boardImage.boardBox.setBounds(0, 0, x, y);
-        boardImage.textPaint.setTextSize(Box.mnoznik*2);
-        return boardImage;
+        textPaint.setTextSize(Box.mnoznik*2);
     }
 
     @Override
@@ -75,22 +71,22 @@ public class BoardImage extends View{
         {
             if(width - event.getX() > event.getY())
             {
-                gameFragment.setNewDirection(context.getResources().getInteger(R.integer.up));
+                gameFragment.setNewDirection(Direction.UP);
             }
             else
             {
-                gameFragment.setNewDirection(context.getResources().getInteger(R.integer.right));
+                gameFragment.setNewDirection(Direction.RIGHT);
             }
         }
         else
         {
             if(width - event.getX() > event.getY())
             {
-                gameFragment.setNewDirection(context.getResources().getInteger(R.integer.left));
+                gameFragment.setNewDirection(Direction.LEFT);
             }
             else
             {
-                gameFragment.setNewDirection(context.getResources().getInteger(R.integer.down));
+                gameFragment.setNewDirection(Direction.DOWN);
             }
         }
         return true;
@@ -101,31 +97,28 @@ public class BoardImage extends View{
         super.onDraw(canvas);
         boardBox.draw(canvas);
 
-        if(enemiesPositions != null) {
-            for (Point point : enemiesPositions) {
-                enemyBox.setBounds(point.getX(), point.getY(), point.getX()+1, point.getY()+1);
-                enemyBox.draw(canvas);
-            }
-        }
+        paint(canvas, gameFragment.segments, Color.WHITE);
+        paint(canvas, gameFragment.enemies, Color.GREEN);
+        paint(canvas, gameFragment.walls, Color.BLUE);
+        paint(canvas, gameFragment.meals, Color.RED);
 
-        if(snakePositions != null) {
-            for (Point point : snakePositions) {
-                snakeBox.setBounds(point.getX(), point.getY(), point.getX()+1, point.getY()+1);
-                snakeBox.draw(canvas);
-            }
-            Point head = snakePositions.get(snakePositions.size()-1);
-            headBox.setBounds(head.getX(), head.getY(), head.getX() + 1, head.getY()+1);
-            headBox.draw(canvas);
-        }
-
-        if(meal != null) {
-            mealBox.setBounds(meal.getX(), meal.getY(), meal.getX() + 1, meal.getY() + 1);
-            mealBox.draw(canvas);
-        }
-
-        canvas.drawText(getDisplayText(), width /2, width /2, textPaint);
+        canvas.drawText(getDisplayText(), width/2, width/2, textPaint);
 
         invalidate();  // Force a re-draw
+    }
+
+    private void paint(Canvas canvas, Point [] positions, int color)
+    {
+        for (Point position : positions) {
+            paint(canvas, position, color);
+        }
+    }
+
+    private void paint(Canvas canvas, Point position, int color)
+    {
+        box = new Box(color);
+        box.setBounds(position.getX(), position.getY());
+        box.draw(canvas);
     }
 
     private String getDisplayText()
@@ -141,13 +134,5 @@ public class BoardImage extends View{
             default:
                 return "";
         }
-    }
-
-
-    public void update(ArrayList<Point> segments, Point[] enemies, Point meal)
-    {
-        this.snakePositions = segments;
-        this.enemiesPositions = enemies;
-        this.meal = meal;
     }
 }

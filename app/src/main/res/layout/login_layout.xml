@@ -33,7 +33,7 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/small_text_size"
         android:text="@string/login_button"/>

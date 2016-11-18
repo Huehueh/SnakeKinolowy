@@ -25,6 +25,11 @@ public class Box {
         bounds.set(i*mnoznik, j*mnoznik, i1*mnoznik, j1*mnoznik);
     }
 
+    public void setBounds(int i, int j)
+    {
+        bounds.set(i*mnoznik, j*mnoznik, (i+1)*mnoznik, (j+1)*mnoznik);
+    }
+
     public void draw(Canvas canvas)
     {
         canvas.drawRect(bounds, boardPaint);
