@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "F:\\AndroidStudioProjects\\Snake\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_main.xml",
+        "source": "F:\\AndroidStudioProjects\\Snake\\app\\src\\main\\res\\layout-land\\activity_main.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\Snake\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\game_layout.xml",
+        "source": "F:\\AndroidStudioProjects\\Snake\\app\\src\\main\\res\\layout-land\\game_layout.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\Snake\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\login_layout.xml",
+        "source": "F:\\AndroidStudioProjects\\Snake\\app\\src\\main\\res\\layout-land\\login_layout.xml"
+    }
+]
