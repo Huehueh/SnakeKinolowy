@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "messagetypes.h"
+#include "Point.h"
 using namespace std;
 class Server;
 

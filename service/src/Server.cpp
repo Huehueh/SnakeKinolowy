@@ -72,16 +72,10 @@ void Server::handle_post(http_request message)
         if(tempPlayer>-1){
             notification = players[tempPlayer].Move(map, info.direction);
 
-            vector<Point> enemiesPositions;
-            for(Player player : players){
-                if(player.id!=players[tempPlayer].id){
-                    for(Point pos : player.positions){
-                        enemiesPositions.push_back(pos);
-                    }
-                }
-            }
+            vector<Point> meal, wall;
+            meal.push_back(map.getMeal());
 
-            SnakeJson snake(players[tempPlayer].id, players[tempPlayer].positions[0], notification, players[tempPlayer].positions.size(), map.getMeal(), enemiesPositions);
+            SnakeJson snake(players[tempPlayer].id, notification, players[tempPlayer], players, meal, wall);
             message.reply(200, snake.AsJSON());
         }else{
             cout<<"Zle id"<<endl;

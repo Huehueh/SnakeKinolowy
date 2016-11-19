@@ -1,37 +1,6 @@
 #pragma once
 #include "stdafx.h"
-
-
-
-struct Point{
-    Point(){
-        x=0;
-        y=0;
-    }
-
-    Point(int x_, int y_):x(x_), y(y_){
-
-    }
-    int x;
-    int y;
-
-    Point operator +(Point a){
-        return Point(a.x+x, a.y+y);
-    }
-    bool operator ==(Point a){
-        return a.x==x && a.y==y;
-    }
-    Point operator /(int a){
-        return Point(x/a, y/a);
-    }
-    web::json::value to_JSON() const
-    {
-        web::json::value Json = web::json::value::object();
-        Json[U("x")] = web::json::value::number(x);
-        Json[U("y")] = web::json::value::number(y);
-        return Json;
-    }
-};
+#include "Player.h"
 
 struct LoginJson{
     int id;
@@ -68,20 +37,19 @@ struct LoginJson{
 //oddać kinolom
 struct SnakeJson{
     int id;
-    Point newPos;
     int notification;
-    int length;
-    Point meal;
+    Player snake;
+    std::vector<Player > enemies;
+    std::vector<Point> meal;
+    std::vector<Point> wall;
 
-    std::vector<Point> enemiesPositions;
 
-    SnakeJson(int id_, Point newPos_, int notification_, int length_, Point meal_, std::vector<Point> enemiesPositions_){
+    SnakeJson(int id_, int notification_, Player snake_, std::vector<Player > enemies_, std::vector<Point> meal_, std::vector<Point> wall_):snake(snake_){
         id = id_;
-        newPos = newPos_;
         notification = notification_;
-        length = length_;
+        enemies = enemies_;
         meal = meal_;
-        enemiesPositions = enemiesPositions_;
+        wall = wall_;
     }
 
     web::json::value AsJSON() const
@@ -89,15 +57,18 @@ struct SnakeJson{
         web::json::value result = web::json::value::object();
         result[U("id")] = web::json::value::number(id);
         result[U("notification")] = web::json::value::number(notification);
-        result[U("length")] = web::json::value::number(length);
-        result[U("newPos")] = newPos.to_JSON();
-        result[U("meal")] = meal.to_JSON();
+        result[U("snake")] = snake.AsJSON();
 
-        std::vector<web::json::value> positionsJson;
-        for(int i = 0;i<enemiesPositions.size(); i++){
-            positionsJson.push_back(enemiesPositions[i].to_JSON());
+        result[U("meal")] = Point::arrayOfPoints2JSON(meal);
+
+        result[U("wall")] = Point::arrayOfPoints2JSON(wall);
+
+        std::vector<web::json::value> enemiesJson;
+        for(int i = 0;i<enemies.size(); i++){
+            if(enemies[i].id!=snake.id)
+                enemiesJson.push_back(enemies[i].AsJSON());
         }
-        result[U("enemiesPositions")] = web::json::value::array(positionsJson);
+        result[U("enemies")] = web::json::value::array(enemiesJson);
         return result;
     }
 };
