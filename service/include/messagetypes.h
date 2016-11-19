@@ -7,9 +7,9 @@ struct LoginJson{
     float frameRate;
     Point size;
     std::vector<Point> positions;
-    float time2resp;
+    int time2resp;
 
-    LoginJson(int id_, float framerate_, Point size_, std::vector<Point> positions_, float time2resp_){
+    LoginJson(int id_, float framerate_, Point size_, std::vector<Point> positions_, int time2resp_){
         id = id_;
         frameRate = framerate_;
         size = size_;
