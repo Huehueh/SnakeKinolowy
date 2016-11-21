@@ -20,6 +20,12 @@ public class Point implements Serializable{
         return y;
     }
 
+    public Point()
+    {
+
+    }
+
+
     public Point (int x, int y)
     {
         this.x = x;
@@ -28,8 +34,7 @@ public class Point implements Serializable{
 
     public Point(Point previous, Direction direction, Point board)
     {
-        this.x = previous.getX();
-        this.y = previous.getY();
+        this(previous.getX(), previous.getY());
         switch (direction)
         {
             case DOWN:

@@ -24,7 +24,6 @@ import org.springframework.web.client.RestTemplate;
 public class LoginActivity extends Activity{
 
     EditText ipEditText, loginEditText;
-    private final static String IP = "IP", LOGIN = "LOGIN", REST_ADDRESS = "ADDRESS";
     String TAG = "LoginAc";
 
     @Override
@@ -44,8 +43,8 @@ public class LoginActivity extends Activity{
         findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save(LOGIN, ((EditText) findViewById(R.id.loginEditText)).getText().toString());
-                save(IP, ((EditText) findViewById(R.id.serverIpEditText)).getText().toString());
+                save(BundleNames.LOGIN, ((EditText) findViewById(R.id.loginEditText)).getText().toString());
+                save(BundleNames.IP, ((EditText) findViewById(R.id.serverIpEditText)).getText().toString());
                 new RequestLoginTask().execute();
             }
         });
@@ -54,10 +53,10 @@ public class LoginActivity extends Activity{
         loginEditText.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(loginEditText, InputMethodManager.SHOW_IMPLICIT);
-        loginEditText.setText(getValue(LOGIN));
+        loginEditText.setText(getValue(BundleNames.LOGIN));
         //ip
         ipEditText = (EditText) findViewById(R.id.serverIpEditText);
-        ipEditText.setText(getValue(IP));
+        ipEditText.setText(getValue(BundleNames.IP));
     }
 
 
@@ -74,7 +73,7 @@ public class LoginActivity extends Activity{
     private void startGame(String restAddress, User user)
     {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(REST_ADDRESS, restAddress);
+        intent.putExtra(BundleNames.REST_ADDRESS, restAddress);
         intent.putExtra(User.USER, user);
 
         startActivity(intent);
@@ -85,10 +84,10 @@ public class LoginActivity extends Activity{
     {
         StringBuilder builder = new StringBuilder();
         builder.append("http://");
-        builder.append(getValue(IP));
+        builder.append(getValue(BundleNames.IP));
         builder.append(":3911/wonsz");
         builder.append("?login=");
-        builder.append(getValue(LOGIN));
+        builder.append(getValue(BundleNames.LOGIN));
 
         return builder.toString();
     }
@@ -118,6 +117,7 @@ public class LoginActivity extends Activity{
                 {
                     e.getMessage();
                 }
+                save(BundleNames.ID, user.getId()+"");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

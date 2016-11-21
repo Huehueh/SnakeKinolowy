@@ -8,37 +8,6 @@ import java.io.Serializable;
 public class SnakeMessage{
 
     public static Point boardSize;
-
-    public class Snake
-    {
-        int x;
-        int y;
-        int [] seg;
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public int[] getSeg() {
-            return seg;
-        }
-
-        public Point [] transform()
-        {
-            Point [] result = new Point[seg.length + 1];
-            result[0] = new Point(x, y);
-            for(int i = 0; i < seg.length; i++)
-            {
-                result[i+1] = new Point(result[i], Direction.getDirection(seg[i]), SnakeMessage.boardSize);
-            }
-            return result;
-        }
-    }
-
     private int id;
     private int notification;//1-zjadlam, 0 - nie, 2 zderzenie
     private Point[] meal;

@@ -52,6 +52,7 @@ public class BoardImage extends View{
             width = screenSize.y;
             Box.mnoznik = (int)Math.floor((double)width/boardSize.getY());
         }
+        boardBox = new Box(Color.BLACK);
         boardBox.setBounds(0, 0, boardSize.getX(), boardSize.getY());
         createTextStyle();
     }
@@ -97,8 +98,8 @@ public class BoardImage extends View{
         super.onDraw(canvas);
         boardBox.draw(canvas);
 
-        paint(canvas, gameFragment.segments, Color.WHITE);
-        paint(canvas, gameFragment.enemies, Color.GREEN);
+        paintWithHead(canvas, gameFragment.segments, Color.WHITE, Color.GRAY);
+        paintWithHead(canvas, gameFragment.enemies, Color.GREEN, Color.YELLOW);
         paint(canvas, gameFragment.walls, Color.BLUE);
         paint(canvas, gameFragment.meals, Color.RED);
 
@@ -109,8 +110,19 @@ public class BoardImage extends View{
 
     private void paint(Canvas canvas, Point [] positions, int color)
     {
-        for (Point position : positions) {
-            paint(canvas, position, color);
+        if(positions!=null) {
+            for (Point position : positions) {
+                paint(canvas, position, color);
+            }
+        }
+    }
+
+    private void paintWithHead(Canvas canvas, Point [] positions, int color, int color2)
+    {
+        paint(canvas, positions, color);
+        if(positions != null) {
+            if(positions.length > 0)
+                paint(canvas, positions[0], color2);
         }
     }
 

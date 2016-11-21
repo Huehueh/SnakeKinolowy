@@ -4,30 +4,35 @@
     api-level="23"
     density="420dpi"
     format="7"
-    timestamp="294253140544679"
+    timestamp="466397022251044"
     token="-7077608032593528423" >
 
     <task
         name="javac"
-        duration="272" />
+        duration="630" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="152" />
+        duration="51" />
     <task
         name="verifier"
-        duration="59" />
+        duration="11" />
 
     <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
+        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
+        type="DEX" />
 
-    <build timestamp="294253140544679" >
+    <build timestamp="465094486654430" >
         <artifact
             location="F:\AndroidStudioProjects\Snake\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
+    </build>
+    <build timestamp="466397022251044" >
+        <artifact
+            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
+            type="DEX" />
     </build>
 
 </instant-run>

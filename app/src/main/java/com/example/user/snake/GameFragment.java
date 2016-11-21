@@ -147,14 +147,6 @@ public class GameFragment extends Fragment{
         imm.hideSoftInputFromWindow(board.getWindowToken(), 0);
     }
 
-    private class BundleNames
-    {
-        private final static String SEGMENTS = "SEGMENTS";
-        private final static String MEAL = "MEAL";
-        private final static String ENEMIES = "ENEMIES";
-        private final static String WALLS = "WALLS";
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -264,7 +256,7 @@ public class GameFragment extends Fragment{
     public void understandSnakeMessage(SnakeMessage snakeMessage)
     {
         segments = snakeMessage.getSnake().transform();
-        for (SnakeMessage.Snake enemy : snakeMessage.getEnemies()) {
+        for (Snake enemy : snakeMessage.getEnemies()) {
             enemies = (Point[]) ArrayUtils.addAll(enemies, enemy.transform());
         }
         walls = snakeMessage.getWall();
