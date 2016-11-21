@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 
 /**
  * Created by user on 08.11.2016.
@@ -126,6 +127,16 @@ public class BoardImage extends View{
         }
     }
 
+    private void paintWithHead(Canvas canvas, List<Point []> positions, int color, int color2)
+    {
+        if(positions != null)
+        {
+            for (Point[] position : positions) {
+                paintWithHead(canvas, position, color, color2);
+            }
+        }
+    }
+
     private void paint(Canvas canvas, Point position, int color)
     {
         box = new Box(color);
@@ -135,16 +146,19 @@ public class BoardImage extends View{
 
     private String getDisplayText()
     {
-        switch (gameFragment.state)
+        if(gameFragment.gameWorking)
         {
-            case working:
-                return "";
-            case counting:
-                return gameFragment.countDownThread.deathCount+"";
-            case pause:
+            return "";
+        }
+        else
+        {
+            if(gameFragment.deathCount == -1) {
                 return getResources().getText(R.string.click_start).toString();
-            default:
-                return "";
+            }
+            else {
+                return gameFragment.deathCount+"";
+            }
+
         }
     }
 }

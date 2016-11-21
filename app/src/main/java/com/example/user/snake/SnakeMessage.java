@@ -19,6 +19,11 @@ public class SnakeMessage{
         return notification;
     }
 
+    public Notification getSnakeNotification()
+    {
+        return Notification.getNotification(notification);
+    }
+
     public int getId() {
         return id;
     }

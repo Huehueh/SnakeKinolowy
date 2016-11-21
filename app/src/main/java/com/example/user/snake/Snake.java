@@ -28,10 +28,10 @@ public class Snake {
         Point [] result = new Point[seg.length + 1];
         result[0] = new Point(x, y);
 
-        Log.v(TAG, "length "+ seg.length + 1);
+//        Log.v(TAG, "length "+ seg.length + 1);
         for(int i = 0; i < seg.length; i++)
         {
-            Log.v(TAG, "direction " + seg[i]);
+//            Log.v(TAG, "direction " + seg[i]);
             result[i+1] = new Point(result[i], Direction.getDirection(seg[i]), SnakeMessage.boardSize);
         }
         return result;

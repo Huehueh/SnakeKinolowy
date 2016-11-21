@@ -12,10 +12,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -26,26 +26,29 @@ public class GameFragment extends Fragment{
     int TIME_TO_RESP;
 
     //do przekazania w Bundle
-    Point [] segments, enemies, meals, walls;
+    Point [] segments, meals, walls;
+    List<Point []> enemies;
     Point boardSize;
-    GameState state = GameState.pause;
+//    GameState state = GameState.pause;
+    boolean gameWorking = false;
     int deltaTime = 300; //ms default
     Stack<Steering> steerings;
     public MainActivity mainActivity;
     CountDownThread countDownThread;
+    int deathCount = -1;
 
     //layout
     LinearLayout boardView;
     Button startPauseButton;
 
     public static String TAG = "GameFragment";
-
-    enum GameState
-    {
-        working,
-        pause,
-        counting
-    }
+//
+//    enum GameState
+//    {
+//        working,
+//        pause,
+//        counting
+//    }
 
     private static class Steering
     {
@@ -89,14 +92,7 @@ public class GameFragment extends Fragment{
         startPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(state == GameState.working)
-                {
-                    pauseGame();
-                }
-                else
-                {
-                    startGame();
-                }
+                startPauseGame(!gameWorking);
             }
         });
         boardView = (LinearLayout)rootView.findViewById(R.id.board);
@@ -124,9 +120,9 @@ public class GameFragment extends Fragment{
         {
             segments = (Point[])savedInstanceState.getSerializable(BundleNames.SEGMENTS);
             meals = (Point[])savedInstanceState.getSerializable(BundleNames.MEAL);
-            enemies = (Point[])savedInstanceState.getSerializable(BundleNames.ENEMIES);
+//            enemies = (List<Point[]>)savedInstanceState.getSerializable(BundleNames.ENEMIES);
             walls = (Point[])savedInstanceState.getSerializable(BundleNames.WALLS);
-            state = GameState.pause;
+            startPauseGame(false);
         }
 
         if(segments == null)
@@ -152,7 +148,7 @@ public class GameFragment extends Fragment{
         super.onSaveInstanceState(outState);
         outState.putSerializable(BundleNames.SEGMENTS, segments);
         outState.putSerializable(BundleNames.MEAL, meals);
-        outState.putSerializable(BundleNames.ENEMIES, enemies);
+//        outState.putParcelableArrayList(BundleNames.ENEMIES, enemies);
         outState.putSerializable(BundleNames.WALLS, walls);
     }
 
@@ -160,7 +156,7 @@ public class GameFragment extends Fragment{
     @Override
     public void onPause() {
         super.onPause();
-        pauseGame();
+        startPauseGame(false);
     }
 
     public void setNewDirection(Direction dir)
@@ -195,34 +191,32 @@ public class GameFragment extends Fragment{
         }
     }
 
-    public void startGame()
+
+    public void startPauseGame(boolean working)
     {
-        if(state == GameState.pause) {
-            state = GameState.working;
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    startPauseButton.setText(getResources().getText(R.string.pause));
-                }
-            });
-            setNewDirection();
+        gameWorking = working;
+        if(!gameWorking)
+        {
+            steerings.removeAllElements();
+            deathCount = -1;
         }
+        setNewDirection();
+        setButton();
     }
 
-    public void pauseGame()
+    private void setButton()
     {
-        if(state == GameState.working)
-        {
-            state = GameState.pause;
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(gameWorking) {
+                    startPauseButton.setText(getResources().getText(R.string.pause));
+                }
+                else {
                     startPauseButton.setText(getResources().getText(R.string.start));
                 }
-            });
-            steerings.removeAllElements();
-            setNewDirection();
-        }
+            }
+        });
     }
 
 
@@ -256,44 +250,38 @@ public class GameFragment extends Fragment{
     public void understandSnakeMessage(SnakeMessage snakeMessage)
     {
         segments = snakeMessage.getSnake().transform();
-        for (Snake enemy : snakeMessage.getEnemies()) {
-            enemies = (Point[]) ArrayUtils.addAll(enemies, enemy.transform());
+        enemies = new ArrayList<>();
+        for (int i = 0; i< snakeMessage.getEnemies().length; i++) {
+            enemies.add(snakeMessage.getEnemies()[i].transform());
         }
         walls = snakeMessage.getWall();
         meals = snakeMessage.getMeal();
 
 
-        if(snakeMessage.getNotification() == 2)//umarles
+        switch(snakeMessage.getSnakeNotification())
         {
-            pauseGame();
-            //jesli pauza, odliczaj
-            if(state == GameState.pause) {
-                state = GameState.counting;
+            case NIC:
+                break;
+            case OZYLES:
+                startPauseGame(true);
+                startPauseButton.setEnabled(true);
+                break;
+            case UMARLES:
+                startPauseGame(false);
                 countDownThread = new CountDownThread();
                 countDownThread.start();
-            }
+                startPauseButton.setEnabled(false);
+                break;
+            case ZJADLES:
+                break;
         }
-
-        mainActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(state == GameState.counting)
-                {
-                    startPauseButton.setEnabled(false);
-                }
-                else
-                {
-                    startPauseButton.setEnabled(true);
-                }
-            }
-        });
     }
 
     public class CountDownThread extends Thread
     {
-        int deathCount;
+
         public void run() {
-            deathCount = TIME_TO_RESP;
+            deathCount = TIME_TO_RESP + 1;
             while(deathCount > 0)
             {
                 deathCount--;
@@ -305,8 +293,6 @@ public class GameFragment extends Fragment{
                     e.printStackTrace();
                 }
             }
-            state = GameState.working;
-            pauseGame();
         }
     }
 
@@ -320,9 +306,9 @@ public class GameFragment extends Fragment{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(state == GameState.working) {
+                //if(gameWorking) {
                     new SendSteeringTask().execute();
-                }
+                //}
             }
         }
     });

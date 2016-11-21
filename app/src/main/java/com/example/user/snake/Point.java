@@ -52,6 +52,37 @@ public class Point implements Serializable{
         }
     }
 
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeIntArray(new int[]{x,y});
+//    }
+//
+//    public static final Parcelable.Creator<Point> CREATOR = new Parcelable.Creator<Point>()
+//    {
+//        @Override
+//        public Point createFromParcel(Parcel source) {
+//            return new Point(source);
+//        }
+//
+//        @Override
+//        public Point[] newArray(int size) {
+//            return new Point[size];
+//        }
+//    };
+//
+//    private Point(Parcel in)
+//    {
+//        int[] array = new int[2];
+//        in.readIntArray(array);
+//        x = array[0];
+//        y = array[1];
+//    }
+
     private void moveUp(int sizeY)
     {
         if(y == 0)
