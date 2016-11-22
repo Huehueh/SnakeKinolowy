@@ -16,12 +16,21 @@ Point Map::Size(){
 }
 
 bool Map::eating(Point here){
-    bool eat;
+    bool eat= false;
     if(meal == here){
         eat = true;
         makeMeal();
     }else{
-        eat = false;
+        for(Player player : server->players){
+            for(auto it= player.meal.begin(); it<player.meal.end();it++){
+                if(*it ==here){
+                    eat=true;
+                    player.meal.erase(it);
+                    break;
+                    break;
+                }
+            }
+        }
     }
     return eat;
 }
