@@ -74,6 +74,12 @@ void Server::handle_post(http_request message)
 
             vector<Point> meal, wall;
             meal.push_back(map.getMeal());
+            for(int i = 0;i<players.size();i++){
+                for(int j = 0; j<players[i].meal.size();j++)
+                    meal.push_back(players[i].meal[j]);
+                for(int j = 0; j<players[i].wall.size();j++)
+                    wall.push_back(players[i].wall[j]);
+            }
 
             SnakeJson snake(players[tempPlayer].id, notification, players[tempPlayer], players, meal, wall);
             message.reply(200, snake.AsJSON());

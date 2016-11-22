@@ -108,7 +108,7 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
             dead = false;
             happens = 1;
         }
-        std::cout<<diff<<std::endl;
+        //std::cout<<diff<<std::endl;
     }
     return happens;
 }
