@@ -95,7 +95,7 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
                 }
             }else{
                 if(shoot){
-                    ShootLaser(players, map, direction);
+                    ShootLaser(players, map);
                 }
             }
     	}
@@ -112,10 +112,11 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
     }
     return happens;
 }
-void Player::ShootLaser(vector<Player> &players, Map map, int dir){
+void Player::ShootLaser(vector<Player> &players, Map map){
 
     if(positions.size()>3){
         vector<Point> laser;
+        int dir = point2Direction(positions[0]-positions[1]);
         laser.push_back(stayOnMap(map, positions[0]+direction2Point(dir)));
         laser.push_back(stayOnMap(map, laser[0]+direction2Point(dir)));
         laser.push_back(stayOnMap(map, laser[1]+direction2Point(dir)));

@@ -14,7 +14,7 @@ class Player{
     static Point stayOnMap(Map map, Point there);
     static Point direction2Point(int dir);
     static int point2Direction(Point point);
-    void ShootLaser(vector<Player> &players, Map map, int dir);
+    void ShootLaser(vector<Player> &players, Map map);
     void playerCut(vector<Point> point);
 public:
     Player(int id_, string name_, Map map);
