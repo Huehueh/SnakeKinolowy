@@ -44,55 +44,153 @@ string Player::Name(){
     return name;
 }
 
-int Player::Move(Map &map, int direction){
+int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
     int happens=0;
+    shot = false;
     //cout<<"umarl "<<dead<<endl;
-    if(direction>0&&!dead){
-        Point add = direction2Point(direction);
-        Point tempHead = stayOnMap(map, positions[0]+add);
-
-        if(positions.size()>1 && tempHead == positions[1]){
-            return 0;
-        }
-
-        Point last = positions[positions.size()-1];
-        if(map.eating(tempHead)){
-            happens = 1;
-            positions.push_back(Point(positions[positions.size()-1]));
-        }
-		
-        for(int i = positions.size()-1; i>0; i --){
-            if(!(positions[i] == positions[i-1])){
-                positions[i] = positions[i-1];
+     
+    if(!dead){
+	    if(direction>0){  
+            Point add = direction2Point(direction);
+            Point tempHead = stayOnMap(map, positions[0]+add);
+        //czy glowa nie zawraca
+            if(positions.size()>1 && tempHead == positions[1]){
+                return 0;
             }
-        }
-        map.freeSpace(tempHead, dead);
-
-        positions[0] = tempHead;
-        if(dead){
-            happens = 2;
-            std::chrono::time_point<std::chrono::system_clock> date = std::chrono::system_clock::now();
-            death_time = std::chrono::system_clock::to_time_t(date);
-            deathCount++;
-            for(int i = 0; i < positions.size()-1; i++){
-                positions[i] = positions[i+1];
+        //sprawdz czy glowa zjada cos
+            Point last = positions[positions.size()-1];
+            if(map.eating(tempHead)){
+                happens = 3;
+                positions.push_back(Point(positions[positions.size()-1]));
             }
-            positions[positions.size()-1] = last;
-        }
-    }
-    if(dead){
-        happens = 2;
+        //przesun cialko za glowa
+            for(int i = positions.size()-1; i>0; i --){
+                if(!(positions[i] == positions[i-1])){
+                    positions[i] = positions[i-1];
+                }
+            }
+        //sprawdz czy glowa umiera
+            map.freeSpace(tempHead, dead);
+        //przystaw weza na nowa pozycje
+            positions[0] = tempHead;
+            //jezeli umarl
+            if(dead){
+                happens = 2;
+            //zapisz czas smierci
+                std::chrono::time_point<std::chrono::system_clock> date = std::chrono::system_clock::now();
+                death_time = std::chrono::system_clock::to_time_t(date);
+                deathCount++;
+            //cofnij weza
+                for(int i = 0; i < positions.size()-1; i++){
+                    positions[i] = positions[i+1];
+                }
+            //pamietajac o ostatnim segmencie
+                positions[positions.size()-1] = last;
+                //positions.erase(--positions.end(), positions.end());
+                if(positions.size()>3){
+                    positions.pop_back();
+                }
+                if(positions.size()>3){
+                    positions.pop_back();
+                }
+            }else{
+                if(shoot){
+                    ShootLaser(players, map, direction);
+                }
+            }
+    	}
+    }else{
+        happens = 0;
+	    //sprawdz czas
         std::chrono::time_point<std::chrono::system_clock> date = std::chrono::system_clock::now();
         double diff = std::difftime(std::chrono::system_clock::to_time_t(date), death_time);
         if(diff>time2Resp){
             dead = false;
-            happens = 0;
-
+            happens = 1;
         }
         std::cout<<diff<<std::endl;
     }
     return happens;
 }
+void Player::ShootLaser(vector<Player> &players, Map map, int dir){
+
+    if(positions.size()>3){
+        vector<Point> laser;
+        laser.push_back(stayOnMap(map, positions[0]+direction2Point(dir)));
+        laser.push_back(stayOnMap(map, laser[0]+direction2Point(dir)));
+        laser.push_back(stayOnMap(map, laser[1]+direction2Point(dir)));
+
+        positions.pop_back();
+        for(int i =0;i<players.size();i++){
+           players[i].playerCut(laser);
+        }
+        shot = true;
+    }
+}
+void Player::playerCut(vector<Point> point){
+    if(positions.size()<=3){
+        return;
+    }
+    vector<int> hits;
+    vector<Point> newSnake;
+    vector<Point> fallOff;
+    for(int i = 0;i<positions.size();i++){
+        for(int l = 0; l<point.size();l++){
+            if(point[l] == positions[i]){
+                hits.push_back(i);
+            }
+        }
+    }
+    for(int i = 0;i<wall.size();i++){
+        for(int l = 0; l<point.size();l++){
+            if(point[l] == wall[i]){
+                wall.erase(wall.begin()+i);
+                i--;
+            }
+        }
+    }
+    bool cut = false;
+    if(hits.size()>0){
+        int i = 0, h = 0;
+        if(hits[h]<2){
+            while(h<3&&hits[h]<2){
+                h++;
+            }
+            newSnake.push_back(positions[0]);
+            newSnake.push_back(positions[1]);
+            newSnake.push_back(positions[2]);
+            cut = true;
+            i=3;
+        }
+        for(;i<positions.size();i++){
+            if(hits[h]<=i){
+                h++;
+                cut=true;
+            } else{
+                if(cut){
+                    fallOff.push_back(positions[i]);
+                }else{
+                    newSnake.push_back(positions[i]);
+                }
+            }
+        }
+        positions = newSnake;
+        float prob = (float)rand()/(float)RAND_MAX;
+        if(prob<((float)fallOff.size()-1.0)/4.0){
+            for(int i =0;i<fallOff.size();i++){
+                wall.push_back(fallOff[i]);
+            }
+        }else{
+            for(int i =0;i<fallOff.size();i++){
+                meal.push_back(fallOff[i]);
+            }
+        }
+    }else{
+        return;
+    }
+
+}
+
 Point Player::stayOnMap(Map map, Point there){
     there.x = there.x%map.Size().x;
     if(there.x<0){
@@ -117,7 +215,7 @@ web::json::value Player::AsJSON() const
         segments.push_back(web::json::value::number(dir));
     }
     result[U("seg")] = web::json::value::array(segments);
-
+    result[U("laser")] = web::json::value::boolean(shot);
     return result;
 }
 Point Player::direction2Point(int dir){
@@ -144,15 +242,15 @@ Point Player::direction2Point(int dir){
 int Player::point2Direction(Point point){
     int result = -1;
     if(point.x==0){
-        if(point.y==1){
+        if(point.y==1||point.y<-1){
             result = 1;
-        }else if(point.y==-1){
+        }else if(point.y==-1||point.y>1){
             result = 3;
         }
     }else if(point.y==0){
-        if(point.x==1){
+        if(point.x==1||point.x<-1){
             result = 2;
-        }else if(point.x==-1){
+        }else if(point.x==-1||point.x>1){
             result = 4;
         }
     }

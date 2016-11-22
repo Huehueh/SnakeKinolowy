@@ -70,7 +70,7 @@ void Server::handle_post(http_request message)
             }
         }
         if(tempPlayer>-1){
-            notification = players[tempPlayer].Move(map, info.direction);
+            notification = players[tempPlayer].Move(map, info.direction, info.shoot, players);
 
             vector<Point> meal, wall;
             meal.push_back(map.getMeal());

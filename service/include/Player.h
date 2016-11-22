@@ -14,12 +14,17 @@ class Player{
     static Point stayOnMap(Map map, Point there);
     static Point direction2Point(int dir);
     static int point2Direction(Point point);
+    void ShootLaser(vector<Player> &players, Map map, int dir);
+    void playerCut(vector<Point> point);
 public:
     Player(int id_, string name_, Map map);
     int id;
     string Name();
     vector<Point> positions;
-    int Move(Map& map, int direction);
+    vector<Point> wall;
+    vector<Point> meal;
+    bool shot;
+    int Move(Map& map, int direction, bool shoot, vector<Player> &players);
     web::json::value AsJSON() const;
 
 };

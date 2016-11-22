@@ -33,6 +33,13 @@ void Map::makeMeal(){
         newMeal = randPlace();
         bool dead;
         freeMeal = freeSpace(newMeal, dead);
+        for(Player player : server->players){
+            for(Point pos : player.meal){
+                if(pos==newMeal){
+                    freeMeal=false;
+                }
+            }
+        }
     }while(!freeMeal);
 
     meal = newMeal;
@@ -43,6 +50,13 @@ bool Map::freeSpace(Point here, bool& dead){
     dead = false;
     for(Player player : server->players){
         for(Point pos : player.positions){
+            //cout<<"       "<<pos.x<<" "<<pos.y<<endl;
+            if(pos==here){
+                free=false;
+                dead = true;
+            }
+        }
+        for(Point pos : player.wall){
             //cout<<"       "<<pos.x<<" "<<pos.y<<endl;
             if(pos==here){
                 free=false;

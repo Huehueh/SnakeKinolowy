@@ -62,7 +62,6 @@ struct SnakeJson{
         result[U("meal")] = Point::arrayOfPoints2JSON(meal);
 
         result[U("wall")] = Point::arrayOfPoints2JSON(wall);
-
         std::vector<web::json::value> enemiesJson;
         for(int i = 0;i<enemies.size(); i++){
             if(enemies[i].id!=snake.id)
@@ -78,13 +77,14 @@ struct SnakeJson{
 struct GetSnakeJson{
     int id;
     int direction;
-
+    bool shoot;
     static GetSnakeJson FromJSON(web::json::value object)
     {
         GetSnakeJson result;
         try{
             result.id = object.at(U("id")).as_integer();
             result.direction = object.at(U("direction")).as_integer();
+            result.shoot = object.at(U("laser")).as_bool();
         }catch(web::json::json_exception e){
             std::cout<<e.what()<<std::endl;
         }
