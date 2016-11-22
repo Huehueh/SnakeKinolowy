@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.4\5fe28b9518e58819180a43a850fbc0dd24b7c050\commons-lang3-3.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="5fe28b9518e58819180a43a850fbc0dd24b7c050">
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\commons-lang3-3.4_7db3fd64edc365700f4b42bc437682ddb3399875.jar" />
+    </item>
+    <item
         jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.3.2\559b70ac8a0d5cad611da4223137a920147201ba\jackson-core-2.3.2.jar"
         jumboMode="false"
         revision="23.0.3"
@@ -56,13 +63,6 @@
         revision="23.0.3"
         sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
         <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\support-annotations-23.4.0_af3ff41e4f7c1efd311bba3c56bce336f57a0db8.jar" />
-    </item>
-    <item
-        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.4\5fe28b9518e58819180a43a850fbc0dd24b7c050\commons-lang3-3.4.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="5fe28b9518e58819180a43a850fbc0dd24b7c050">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\commons-lang3-3.4_7db3fd64edc365700f4b42bc437682ddb3399875.jar" />
     </item>
     <item
         jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.3.2\c75edc740a6d8cb1cef6fa82fa594e0bce561916\jackson-databind-2.3.2.jar"

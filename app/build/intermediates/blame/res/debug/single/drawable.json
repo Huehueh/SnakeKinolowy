@@ -28,6 +28,10 @@
         "source": "F:\\AndroidStudioProjects\\Snake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_ratingbar_small_material.xml"
     },
     {
+        "merged": "F:\\AndroidStudioProjects\\Snake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\laser.png",
+        "source": "F:\\AndroidStudioProjects\\Snake\\app\\src\\main\\res\\drawable\\laser.png"
+    },
+    {
         "merged": "F:\\AndroidStudioProjects\\Snake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
         "source": "F:\\AndroidStudioProjects\\Snake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_borderless_material.xml"
     },

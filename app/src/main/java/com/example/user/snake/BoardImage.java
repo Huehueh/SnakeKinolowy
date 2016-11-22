@@ -20,11 +20,13 @@ import java.util.List;
  * Created by user on 08.11.2016.
  */
 public class BoardImage extends View{
-    Paint textPaint;
-    Box box, boardBox;
-    static  int width;
+
     public GameFragment gameFragment;
     Context context;
+    Canvas canvas;
+    Paint textPaint;
+    Box box, boardBox;
+    public static int width;
 
     public BoardImage(Context context, Point boardSize)
     {
@@ -97,51 +99,53 @@ public class BoardImage extends View{
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        this.canvas = canvas;
         boardBox.draw(canvas);
 
-        paintWithHead(canvas, gameFragment.segments, Color.WHITE, Color.GRAY);
-        paintWithHead(canvas, gameFragment.enemies, Color.GREEN, Color.YELLOW);
-        paint(canvas, gameFragment.walls, Color.BLUE);
-        paint(canvas, gameFragment.meals, Color.RED);
+        paintWithHead(gameFragment.segments, Color.WHITE, Color.GRAY);
+        paintWithHead(gameFragment.enemies, Color.GREEN, Color.CYAN);
+        paint(gameFragment.walls, Color.BLUE);
+        paint(gameFragment.meals, Color.RED);
+        paint(gameFragment.laser, Color.YELLOW);
 
         canvas.drawText(getDisplayText(), width/2, width/2, textPaint);
 
         invalidate();  // Force a re-draw
     }
 
-    private void paint(Canvas canvas, Point [] positions, int color)
-    {
-        if(positions!=null) {
-            for (Point position : positions) {
-                paint(canvas, position, color);
-            }
-        }
-    }
-
-    private void paintWithHead(Canvas canvas, Point [] positions, int color, int color2)
-    {
-        paint(canvas, positions, color);
-        if(positions != null) {
-            if(positions.length > 0)
-                paint(canvas, positions[0], color2);
-        }
-    }
-
-    private void paintWithHead(Canvas canvas, List<Point []> positions, int color, int color2)
-    {
-        if(positions != null)
-        {
-            for (Point[] position : positions) {
-                paintWithHead(canvas, position, color, color2);
-            }
-        }
-    }
-
-    private void paint(Canvas canvas, Point position, int color)
+    private void paint(Point position, int color)
     {
         box = new Box(color);
         box.setBounds(position.getX(), position.getY());
         box.draw(canvas);
+    }
+
+    private void paint(Point [] positions, int color)
+    {
+        if(positions!=null) {
+            for (Point position : positions) {
+                paint(position, color);
+            }
+        }
+    }
+
+    private void paintWithHead(Point [] positions, int color, int color2)
+    {
+        paint(positions, color);
+        if(positions != null) {
+            if(positions.length > 0)
+                paint(positions[0], color2);
+        }
+    }
+
+    private void paintWithHead(List<Point []> positions, int color, int color2)
+    {
+        if(positions != null)
+        {
+            for (Point[] position : positions) {
+                paintWithHead(position, color, color2);
+            }
+        }
     }
 
     private String getDisplayText()

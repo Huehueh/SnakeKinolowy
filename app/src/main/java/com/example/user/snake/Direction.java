@@ -44,9 +44,26 @@ public enum Direction {
         return map.get(i);
     }
 
+    public Direction getOpposite()
+    {
+        switch (this)
+        {
+            case RIGHT:
+                return LEFT;
+            case LEFT:
+                return RIGHT;
+            case UP:
+                return  DOWN;
+            case DOWN:
+                return UP;
+            default:
+                return NO_DIRECTION;
+        }
+    }
+
     public boolean isOpposite(Direction dir)
     {
-        if((this == UP && dir == DOWN) || (this == DOWN && dir == UP) || (this == RIGHT && dir == LEFT) || (this == LEFT && dir == RIGHT))
+        if(dir == getOpposite())
             return true;
         else
             return false;

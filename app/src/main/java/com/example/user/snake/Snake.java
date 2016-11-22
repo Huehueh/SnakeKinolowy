@@ -10,6 +10,7 @@ public class Snake {
     int x;
     int y;
     int [] seg;
+    boolean laser;
 
     public int getX() {
         return x;
@@ -23,17 +24,37 @@ public class Snake {
         return seg;
     }
 
-    public Point [] transform()
+    public boolean isLaser() {
+        return laser;
+    }
+
+    public Point [] transformToArray(Point boardSize)
     {
         Point [] result = new Point[seg.length + 1];
         result[0] = new Point(x, y);
 
-//        Log.v(TAG, "length "+ seg.length + 1);
         for(int i = 0; i < seg.length; i++)
         {
-//            Log.v(TAG, "direction " + seg[i]);
-            result[i+1] = new Point(result[i], Direction.getDirection(seg[i]), SnakeMessage.boardSize);
+            result[i+1] = new Point(result[i], Direction.getDirection(seg[i]), boardSize);
         }
         return result;
     }
+
+    public Point[] getLaserArray(Point boardSize)
+    {
+        Point[] laserArray = null;
+        if(laser) {
+            laserArray = new Point[3];
+            Direction myDirection = Direction.getDirection(seg[0]).getOpposite();
+            laserArray[0] = new Point(new Point(x, y), myDirection, boardSize);
+            laserArray[1] = new Point(laserArray[0], myDirection, boardSize);
+            laserArray[2] = new Point(laserArray[1], myDirection, boardSize);
+        }
+        else {
+            laserArray = new Point[0];
+        }
+        return laserArray;
+    }
+
+
 }

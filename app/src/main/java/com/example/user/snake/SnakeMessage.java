@@ -7,7 +7,6 @@ import java.io.Serializable;
  */
 public class SnakeMessage{
 
-    public static Point boardSize;
     private int id;
     private int notification;//1-zjadlam, 0 - nie, 2 zderzenie
     private Point[] meal;
