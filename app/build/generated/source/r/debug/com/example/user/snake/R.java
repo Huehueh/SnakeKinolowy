@@ -1621,7 +1621,9 @@ containing a value of this type.
         public static final int arrow_up=0x7f02004e;
         public static final int ikonka=0x7f02004f;
         public static final int laser=0x7f020050;
-        public static final int notification_template_icon_bg=0x7f020051;
+        public static final int laser_button_custom=0x7f020051;
+        public static final int notification_template_icon_bg=0x7f020053;
+        public static final int pressed_laser_button=0x7f020052;
     }
     public static final class id {
         public static final int action0=0x7f0c0058;

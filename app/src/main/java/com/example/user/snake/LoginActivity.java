@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -24,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 public class LoginActivity extends Activity{
 
     EditText ipEditText, loginEditText;
+    TextView info;
     String TAG = "LoginAc";
 
     @Override
@@ -57,6 +60,8 @@ public class LoginActivity extends Activity{
         //ip
         ipEditText = (EditText) findViewById(R.id.serverIpEditText);
         ipEditText.setText(getValue(BundleNames.IP));
+
+        info = (TextView) findViewById(R.id.info);
     }
 
 
@@ -101,35 +106,47 @@ public class LoginActivity extends Activity{
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
             restAddress = createRestAddress();
-            User user = restTemplate.getForObject(restAddress, User.class);
+            User user = null;
+            try {
+                user = restTemplate.getForObject(restAddress, User.class);
+            }
+            catch (ResourceAccessException e)
+            {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        info.setText("Nie mozna sie polaczyc z serwerem!");
+                    }
+                });
+            }
             return user;
         }
 
         @Override
         protected void onPostExecute(final User user) {
             super.onPostExecute(user);
-            TextView info = (TextView) findViewById(R.id.info);
-            if(user.getId() > -1) {
-                try {
-                    info.setText(getText(R.string.logged));
-                }
-                catch (NullPointerException e)
-                {
-                    e.getMessage();
-                }
-                save(BundleNames.ID, user.getId()+"");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) { }
-                        startGame(restAddress, user);
+
+            if(user != null) {
+                if (user.getId() > -1) {
+                    try {
+                        info.setText(getText(R.string.logged));
+                    } catch (NullPointerException e) {
+                        e.getMessage();
                     }
-                });
-            }
-            else {
-                info.setText(getText(R.string.change_login));
+                    save(BundleNames.ID, user.getId() + "");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                            }
+                            startGame(restAddress, user);
+                        }
+                    });
+                } else {
+                    info.setText(getText(R.string.change_login));
+                }
             }
         }
     }

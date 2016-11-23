@@ -38,12 +38,13 @@ public class GameFragment extends Fragment{
     CountDownThread countDownThread;
     int deathCount = -1;
     boolean sendLaser = false;
+    SendSteeringTask task = null;
 
     //layout
     LinearLayout boardView;
     Button startPauseButton;
-    ImageButton laserButton;
-    Direction currentDirection;
+    Button laserButton;
+    Direction currentDirection = Direction.NO_DIRECTION;
 
     public static String TAG = "GameFragment";
 
@@ -55,15 +56,17 @@ public class GameFragment extends Fragment{
         startPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                steerings.removeAllElements();
                 startPauseGame(!gameWorking);
             }
         });
         boardView = (LinearLayout)rootView.findViewById(R.id.board);
-        laserButton = (ImageButton) rootView.findViewById(R.id.laserButton);
+        laserButton = (Button) rootView.findViewById(R.id.laserButton);
         laserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendLaser = true;
+                Log.v("laser", "zmieniam na true");
             }
         });
 
@@ -80,20 +83,12 @@ public class GameFragment extends Fragment{
         mainActivity = (MainActivity) getActivity();
         boardSize = mainActivity.user.getSize();
         deltaTime = (int)(1000/mainActivity.user.getFrameRate());
+        //deltaTime = 2000;
         TIME_TO_RESP = mainActivity.user.getTime2resp();
 
         //sterowanie
         Steering.setId(mainActivity.user.getId());
         steerings = new Stack<>();
-
-//        if(savedInstanceState != null)
-//        {
-//            segments = (Point[])savedInstanceState.getSerializable(BundleNames.SEGMENTS);
-//            meals = (Point[])savedInstanceState.getSerializable(BundleNames.MEAL);
-////            enemies = (List<Point[]>)savedInstanceState.getSerializable(BundleNames.ENEMIES);
-//            walls = (Point[])savedInstanceState.getSerializable(BundleNames.WALLS);
-//            startPauseGame(false);
-//        }
 
         if(segments == null)
         {
@@ -114,16 +109,6 @@ public class GameFragment extends Fragment{
         imm.hideSoftInputFromWindow(board.getWindowToken(), 0);
     }
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putSerializable(BundleNames.SEGMENTS, segments);
-//        outState.putSerializable(BundleNames.MEAL, meals);
-////        outState.putParcelableArrayList(BundleNames.ENEMIES, enemies);
-//        outState.putSerializable(BundleNames.WALLS, walls);
-//    }
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -134,8 +119,8 @@ public class GameFragment extends Fragment{
     {
         if(checkIfOk(dir))
         {
-            Steering s = new Steering(dir, sendLaser);
-            steerings.add(s);
+            Log.v("laser", dir.toString() + " is OK");
+            steerings.add(new Steering(dir, sendLaser));
         }
     }
 
@@ -148,7 +133,14 @@ public class GameFragment extends Fragment{
     {
         if(steerings.isEmpty())
         {
-            return true;
+            /*wykomentowac jezeli chcesz by klikniecie do tylu zatrzymywalo*/
+            if(newDirection.isOpposite(currentDirection) || newDirection == currentDirection)
+            {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
         else {
             Direction oldDirection = steerings.lastElement().getDir();
@@ -156,8 +148,7 @@ public class GameFragment extends Fragment{
             {
                 return false;
             }
-            else
-            {
+            else {
                 return true;
             }
         }
@@ -182,13 +173,33 @@ public class GameFragment extends Fragment{
             @Override
             public void run() {
                 if(gameWorking) {
-                    startPauseButton.setText(getResources().getText(R.string.pause));
+                    startPauseButton.setText(mainActivity.getResources().getText(R.string.pause));
                 }
                 else {
-                    startPauseButton.setText(getResources().getText(R.string.start));
+                    startPauseButton.setText(mainActivity.getResources().getText(R.string.start));
                 }
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(task != null)
+        {
+            task.cancel(true);
+            task = null;
+        }
+        if(sendMessageThread != null)
+        {
+            try {
+                sendMessageThread.join();
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     public class SendSteeringTask extends AsyncTask<Void, Void, SnakeMessage> {
@@ -197,10 +208,11 @@ public class GameFragment extends Fragment{
         protected SnakeMessage doInBackground(Void... params) {
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-//            Log.v(TAG, "doInBackground");
+
             Steering steering;
             if(!steerings.isEmpty())
             {
+                Log.v("laser", "stos sterowan " + steerings.size()+ " " + steerings.get(0).getDir().toString());
                 steering = steerings.firstElement();
                 steerings.remove(0);
             }
@@ -208,13 +220,17 @@ public class GameFragment extends Fragment{
             {
                 steering = new Steering(sendLaser);
             }
-            currentDirection = steering.getDir();
-            Log.v(TAG, "steering laser " + steering.isLaser());
+            if(steering.isLaser())
+                Log.v("laser", "steering ma laser");
 
+            currentDirection = steering.getDir();
+
+            Log.v("NOTYFIKACJA", "wysylam " + steering.getDir().toString());
             SnakeMessage snakeMessage = restTemplate.postForObject(mainActivity.restAddress, steering, SnakeMessage.class);
             if(sendLaser)
             {
                 sendLaser = false;
+                Log.v("laser", "zmieniam na false");
             }
             return snakeMessage;
         }
@@ -222,6 +238,7 @@ public class GameFragment extends Fragment{
         @Override
         protected void onPostExecute(SnakeMessage snakeMessage) {
             understandSnakeMessage(snakeMessage);
+            task = null;
         }
     }
 
@@ -280,14 +297,18 @@ public class GameFragment extends Fragment{
     Thread sendMessageThread = new Thread(new Runnable() {
         @Override
         public void run() {
-            Log.v(TAG, "sendMessageThread run");
+            Log.v(TAG, "sendMessageThread run blavo;ihgff");
             while(true) {
                 try {
                     Thread.sleep(deltaTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                new SendSteeringTask().execute();
+                if(task != null){
+                    task.cancel(true);
+                }
+                task =  new SendSteeringTask();
+                task.execute();
             }
         }
     });

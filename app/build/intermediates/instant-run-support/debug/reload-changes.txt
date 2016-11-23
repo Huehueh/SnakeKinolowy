@@ -1,0 +1,5 @@
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\LoginActivity$RequestLoginTask$1$override.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\LoginActivity$override.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\LoginActivity$1$override.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\LoginActivity$RequestLoginTask$override.class

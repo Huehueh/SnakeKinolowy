@@ -16,10 +16,10 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"/>
 
-    <ImageButton
+    <Button
         android:id="@+id/laserButton"
         android:layout_width="@dimen/laser_image_width"
         android:layout_height="@dimen/laser_image_height"
-        android:background="@drawable/laser"/>
+        android:background="@drawable/laser_button_custom"/>
 
 </LinearLayout>

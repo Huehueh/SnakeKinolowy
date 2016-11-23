@@ -460,7 +460,9 @@ int drawable arrow_right 0x7f02004d
 int drawable arrow_up 0x7f02004e
 int drawable ikonka 0x7f02004f
 int drawable laser 0x7f020050
-int drawable notification_template_icon_bg 0x7f020051
+int drawable laser_button_custom 0x7f020051
+int drawable notification_template_icon_bg 0x7f020053
+int drawable pressed_laser_button 0x7f020052
 int id action0 0x7f0c0058
 int id action_bar 0x7f0c0041
 int id action_bar_activity_content 0x7f0c0000
