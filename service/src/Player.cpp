@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(int id_, string name_, Map map){
+Player::Player(int id_, string name_, Map map, int startLength){
     id = id_;
     name = name_;
     bool foundPlace = false;
@@ -129,6 +129,17 @@ void Player::ShootLaser(vector<Player> &players, Map map){
     }
 }
 void Player::playerCut(vector<Point> point){
+    for(auto it= wall.begin(); it<wall.end();it++){
+        for(int l = 0; l<point.size();l++){
+            if(point[l] == *it){
+                wall.erase(it);
+                //std::cout<<"sciana "<<(*it).x<<std::endl;
+                it--;
+                l--;
+            }
+        }
+    }
+
     if(positions.size()<=3){
         return;
     }
@@ -142,19 +153,12 @@ void Player::playerCut(vector<Point> point){
             }
         }
     }
-    for(int i = 0;i<wall.size();i++){
-        for(int l = 0; l<point.size();l++){
-            if(point[l] == wall[i]){
-                wall.erase(wall.begin()+i);
-                i--;
-            }
-        }
-    }
+
     bool cut = false;
     if(hits.size()>0){
         int i = 0, h = 0;
-        if(hits[h]<2){
-            while(h<3&&hits[h]<2){
+        if(hits[h]<3){
+            while(h<3&&hits[h]<3){
                 h++;
             }
             newSnake.push_back(positions[0]);

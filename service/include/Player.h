@@ -7,7 +7,6 @@ using namespace std;
 class Player{
     string name;
     bool dead = false;
-    int startLength = 3;
     double time2Resp = 10;
     std::time_t death_time;
     int deathCount;
@@ -17,13 +16,13 @@ class Player{
     void ShootLaser(vector<Player> &players, Map map);
     void playerCut(vector<Point> point);
 public:
-    Player(int id_, string name_, Map map);
+    Player(int id_, string name_, Map map, int startLength = 3);
     int id;
     string Name();
     vector<Point> positions;
     vector<Point> wall;
     vector<Point> meal;
-    bool shot;
+    bool shot=false;
     int Move(Map& map, int direction, bool shoot, vector<Player> &players);
     web::json::value AsJSON() const;
 

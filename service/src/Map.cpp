@@ -21,11 +21,11 @@ bool Map::eating(Point here){
         eat = true;
         makeMeal();
     }else{
-        for(Player player : server->players){
-            for(auto it= player.meal.begin(); it<player.meal.end();it++){
-                if(*it ==here){
+        for(int i = 0; i<server->players.size();i++){
+            for(auto it= server->players[i].meal.begin(); it<server->players[i].meal.end();it++){
+                if(*it == here){
                     eat=true;
-                    player.meal.erase(it);
+                    server->players[i].meal.erase(it);
                     break;
                     break;
                 }

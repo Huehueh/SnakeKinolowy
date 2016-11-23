@@ -14,6 +14,9 @@ Server::Server(utility::string_t url) : mapSize(20,20), m_listener(url), map(thi
     m_listener.support(methods::POST, std::bind(&Server::handle_post, this, std::placeholders::_1));
     //m_listener.support(methods::DEL, std::bind(&Server::handle_delete, this, std::placeholders::_1));
 
+    Player newOne = Player(players.size(), name, map, 10);
+    int id = newOne.id;
+        players.push_back(newOne);
 }
 int query_no = 0;
 
