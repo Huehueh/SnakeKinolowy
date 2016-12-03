@@ -10,8 +10,9 @@ public class MainActivity extends Activity {
 
     protected User user;
     protected String restAddress;
-    GameFragment gameFragment;
+    public static GameFragment gameFragment;
     private final static String TAG = "GameActivity";
+    MidiPlayer midiPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +26,17 @@ public class MainActivity extends Activity {
         Intent intent = getIntent();
         restAddress = intent.getStringExtra("ADDRESS");
         user = (User) intent.getSerializableExtra(User.USER);
+
+        midiPlayer = new MidiPlayer(this);
+        midiPlayer.playMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(midiPlayer != null)
+        {
+            midiPlayer.stopMusic();
+        }
     }
 }

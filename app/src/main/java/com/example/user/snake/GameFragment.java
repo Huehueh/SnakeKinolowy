@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.user.snake.states.GameState;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -39,6 +41,8 @@ public class GameFragment extends Fragment{
     int deathCount = -1;
     boolean sendLaser = false;
     SendSteeringTask task = null;
+
+    public GameState currentState;
 
     //layout
     LinearLayout boardView;
