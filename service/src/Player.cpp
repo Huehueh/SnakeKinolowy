@@ -1,5 +1,9 @@
 #include "Player.h"
 
+// za co daje punkty
+
+// za co odejmuje punkty
+//smierc -1;
 
 Player::Player(int id_, string name_, Map map, int startLength){
     id = id_;
@@ -13,21 +17,25 @@ Player::Player(int id_, string name_, Map map, int startLength){
     positions.push_back(place);
     for(int i = 1; i<startLength;i++){
         place.x--;
+        place = stayOnMap(map, place);
         if(map.freeSpace(place, dead)){
             positions.push_back(place);
         }else{
             place.x++;
             place.y--;
+            place = stayOnMap(map, place);
             if(map.freeSpace(place, dead)){
                 positions.push_back(place);
             }else{
                 place.y++;
                 place.x++;
+                place = stayOnMap(map, place);
                 if(map.freeSpace(place, dead)){
                     positions.push_back(place);
                 }else{
                     place.x--;
                     place.y++;
+                    place = stayOnMap(map, place);
                     if(map.freeSpace(place, dead)){
                         positions.push_back(place);
                     }else{
@@ -39,9 +47,18 @@ Player::Player(int id_, string name_, Map map, int startLength){
     }
     dead = false;
 }
+Player::Player(){
 
-string Player::Name(){
+}
+
+int Player::ID()const{
+    return id;
+}
+string Player::Name()const{
     return name;
+}
+int Player::Points()const{
+    return points;
 }
 
 int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
@@ -61,6 +78,7 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
             Point last = positions[positions.size()-1];
             if(map.eating(tempHead)){
                 happens = 3;
+                points++;
                 positions.push_back(Point(positions[positions.size()-1]));
             }
         //przesun cialko za glowa
@@ -76,6 +94,7 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
             //jezeli umarl
             if(dead){
                 happens = 2;
+                points--;
             //zapisz czas smierci
                 std::chrono::time_point<std::chrono::system_clock> date = std::chrono::system_clock::now();
                 death_time = std::chrono::system_clock::to_time_t(date);

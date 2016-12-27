@@ -2,14 +2,14 @@
 #include "stdafx.h"
 #include "Player.h"
 
-struct LoginJson{
+struct OutLoginJson{
     int id;
     float frameRate;
     Point size;
     std::vector<Point> positions;
     int time2resp;
 
-    LoginJson(int id_, float framerate_, Point size_, std::vector<Point> positions_, int time2resp_){
+    OutLoginJson(int id_, float framerate_, Point size_, std::vector<Point> positions_, int time2resp_){
         id = id_;
         frameRate = framerate_;
         size = size_;
@@ -34,9 +34,23 @@ struct LoginJson{
         return result;
     }
 };
+struct InLoginJson{
+    string name;
+    static InLoginJson FromJSON(web::json::value object)
+    {
+        InLoginJson result;
+        try{
+            result.name = object.at(U("login")).as_string();
+        }catch(web::json::json_exception e){
+            std::cout<<e.what()<<std::endl;
+        }
+        return result;
+    }
+};
+
 //oddać kinolom
-struct SnakeJson{
-    int id;
+struct OutMoveJson{
+   // int id;
     int notification;
     Player snake;
     std::vector<Player > enemies;
@@ -44,8 +58,8 @@ struct SnakeJson{
     std::vector<Point> wall;
 
 
-    SnakeJson(int id_, int notification_, Player snake_, std::vector<Player > enemies_, std::vector<Point> meal_, std::vector<Point> wall_):snake(snake_){
-        id = id_;
+    OutMoveJson(/*int id_,*/ int notification_, Player snake_, std::vector<Player > enemies_, std::vector<Point> meal_, std::vector<Point> wall_):snake(snake_){
+        //id = id_;
         notification = notification_;
         enemies = enemies_;
         meal = meal_;
@@ -55,7 +69,7 @@ struct SnakeJson{
     web::json::value AsJSON() const
     {
         web::json::value result = web::json::value::object();
-        result[U("id")] = web::json::value::number(id);
+        //result[U("id")] = web::json::value::number(id);
         result[U("notification")] = web::json::value::number(notification);
         result[U("snake")] = snake.AsJSON();
 
@@ -64,7 +78,7 @@ struct SnakeJson{
         result[U("wall")] = Point::arrayOfPoints2JSON(wall);
         std::vector<web::json::value> enemiesJson;
         for(int i = 0;i<enemies.size(); i++){
-            if(enemies[i].id!=snake.id)
+            if(enemies[i].ID()!=snake.ID())
                 enemiesJson.push_back(enemies[i].AsJSON());
         }
         result[U("enemies")] = web::json::value::array(enemiesJson);
@@ -74,20 +88,39 @@ struct SnakeJson{
 
 
 //dostane od kinoli
-struct GetSnakeJson{
-    int id;
+struct InMoveJson{
     int direction;
     bool shoot;
-    static GetSnakeJson FromJSON(web::json::value object)
+    static InMoveJson FromJSON(web::json::value object)
     {
-        GetSnakeJson result;
+        InMoveJson result;
         try{
-            result.id = object.at(U("id")).as_integer();
             result.direction = object.at(U("direction")).as_integer();
             result.shoot = object.at(U("laser")).as_bool();
         }catch(web::json::json_exception e){
             std::cout<<e.what()<<std::endl;
         }
+        return result;
+    }
+};
+
+struct OutScores{
+    vector<Player> players;
+    OutScores(vector<Player> _players):players(_players){
+    }
+
+    web::json::value AsJSON() const
+    {
+        web::json::value result = web::json::value::object();
+
+        std::vector<web::json::value> scoresJson;
+        for(int i = 0;i<players.size(); i++){
+            web::json::value score = web::json::value::object();
+            score[U("name")] = web::json::value::string(players[i].Name());
+            score[U("points")] = players[i].Points();
+            scoresJson.push_back(score);
+        }
+        result[U("scores")] = web::json::value::array(scoresJson);
         return result;
     }
 };

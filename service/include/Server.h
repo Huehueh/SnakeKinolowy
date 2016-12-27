@@ -13,7 +13,7 @@ using namespace http::experimental::listener;
 class Server
 {
 public:
-    Server():mapSize(20,20), map(this, mapSize) {}
+    Server():mapSize(20,20), map(this, mapSize), frameRate(3), time2resp(10) {}
 /**
  * @brief Constructor - makes server with given URL
  * @param url
@@ -27,6 +27,8 @@ public:
 
     std::vector<Player> players;
     Point mapSize;
+    float frameRate;
+    int time2resp;
     Map map;
 private:
 #if DEBUG
@@ -34,13 +36,21 @@ private:
 #else
 	bool DEBUG = false;
 #endif
-	std::string name;
     void handle_get(http_request message);
+    void score(int id, http_request message);
+
     //void handle_put(http_request message);
+
     void handle_post(http_request message);
-    //void handle_delete(http_request message);
+    void login(int id, http_request message);
+    void move(int id, http_request message);
 
 
+    void handle_delete(http_request message);
+    void logout(int id, http_request message);
+    void reset(int id, http_request message);
 
+    bool playerIdExist(int id);
     http_listener m_listener;
+    int randId();
 };
