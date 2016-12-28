@@ -21,6 +21,7 @@ class Player{
 public:
     Player(int id_, string name_, Map map, int startLength = 3);
     Player();
+    Player(int id_);
     int ID() const;
     string Name() const;
     int Points() const;
