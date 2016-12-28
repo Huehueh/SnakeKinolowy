@@ -220,6 +220,7 @@
     <string name="app_name">Snake</string>
     <string name="change_login">Login zajety</string>
     <string name="click_start">Kliknij START</string>
+    <string name="exit">Exit game</string>
     <string name="failure">Umarles!</string>
     <string name="give_IP">Adres IP serwera</string>
     <string name="log_in">Podaj swoj login</string>

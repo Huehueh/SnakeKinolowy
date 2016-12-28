@@ -1,175 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="armeabi-v7a,armeabi"
-    api-level="22"
-    density="xhdpi"
+    abi="x86"
+    api-level="23"
+    density="420dpi"
     format="7"
-    timestamp="151986734272290"
+    timestamp="216047560247751"
     token="-7077608032593528423" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="182" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="85" />
+        duration="18" />
     <task
         name="verifier"
-        duration="14" />
+        duration="2" />
 
     <artifact
         location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
         type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.4.0_98d28d5102579cafd365505521a87d4d3ac0b0c7\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.4.0_f6f4a7c0d7ea8d3b3b2daeacc20471c42dea78b1\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.3.2_9e7717c361241e69906f76dfd25ad92142eac528\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\spring-android-rest-template-1.0.1.RELEASE_e56469d223bb291a45378bbb8c8c2476fd352955\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_0ad73966ef71eb0f03e52fe93648152475a088a7\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_2\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.4.0_39bb2e5b544c6ef41ff76b8d5336cf07a132f885\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\spring-android-core-1.0.1.RELEASE_78e785fd9a573e3988e5b4192c1c960d0267e9d6\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-annotations-2.3.0_cdeb64f351b5d6ca8397a7e78571c61b6d2e94f8\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_6bca8a4b518c0aacd8d9768e704e16568d1cfe86\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_7\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_5\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_4\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_8\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_60ef9814b1e94891aa2199bf0f8977b449e3280d\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_068e17c0a503924e9cfc49635d8efec38ed0885e\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_9\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_af3ff41e4f7c1efd311bba3c56bce336f57a0db8\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\commons-lang3-3.4_7db3fd64edc365700f4b42bc437682ddb3399875\classes.dex"
-        type="DEX" />
-    <artifact
-        location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-databind-2.3.2_57aacb35646339141babaf934acda1d520b17610\classes.dex"
-        type="DEX" />
 
-    <build timestamp="151417056977800" >
+    <build timestamp="208033087211920" >
         <artifact
             location="F:\AndroidStudioProjects\Snake\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
     </build>
-    <build timestamp="151986734272290" >
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.4.0_98d28d5102579cafd365505521a87d4d3ac0b0c7\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.4.0_f6f4a7c0d7ea8d3b3b2daeacc20471c42dea78b1\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.3.2_9e7717c361241e69906f76dfd25ad92142eac528\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\spring-android-rest-template-1.0.1.RELEASE_e56469d223bb291a45378bbb8c8c2476fd352955\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_0ad73966ef71eb0f03e52fe93648152475a088a7\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_2\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.4.0_39bb2e5b544c6ef41ff76b8d5336cf07a132f885\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\spring-android-core-1.0.1.RELEASE_78e785fd9a573e3988e5b4192c1c960d0267e9d6\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-annotations-2.3.0_cdeb64f351b5d6ca8397a7e78571c61b6d2e94f8\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_6bca8a4b518c0aacd8d9768e704e16568d1cfe86\classes.dex"
-            type="DEX" />
+    <build timestamp="213269530063431" >
         <artifact
             location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
             type="DEX" />
         <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_7\classes.dex"
+            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_2\classes.dex"
             type="DEX" />
+    </build>
+    <build timestamp="213398129594966" >
         <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_5\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_4\classes.dex"
-            type="DEX" />
+            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\res\resources-debug.ap_"
+            type="RESOURCES" />
+    </build>
+    <build timestamp="214589902417700" >
         <artifact
             location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_8\classes.dex"
             type="DEX" />
+    </build>
+    <build timestamp="216047560247751" >
         <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_60ef9814b1e94891aa2199bf0f8977b449e3280d\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_068e17c0a503924e9cfc49635d8efec38ed0885e\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_9\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_af3ff41e4f7c1efd311bba3c56bce336f57a0db8\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\commons-lang3-3.4_7db3fd64edc365700f4b42bc437682ddb3399875\classes.dex"
-            type="DEX" />
-        <artifact
-            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-databind-2.3.2_57aacb35646339141babaf934acda1d520b17610\classes.dex"
+            location="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
             type="DEX" />
     </build>
 

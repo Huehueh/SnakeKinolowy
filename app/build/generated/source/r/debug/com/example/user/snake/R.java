@@ -1615,15 +1615,11 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020048;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020049;
         public static final int abc_textfield_search_material=0x7f02004a;
-        public static final int arrow_down=0x7f02004b;
-        public static final int arrow_left=0x7f02004c;
-        public static final int arrow_right=0x7f02004d;
-        public static final int arrow_up=0x7f02004e;
-        public static final int ikonka=0x7f02004f;
-        public static final int laser=0x7f020050;
-        public static final int laser_button_custom=0x7f020051;
-        public static final int notification_template_icon_bg=0x7f020053;
-        public static final int pressed_laser_button=0x7f020052;
+        public static final int ikonka=0x7f02004b;
+        public static final int laser=0x7f02004c;
+        public static final int laser_button_custom=0x7f02004d;
+        public static final int notification_template_icon_bg=0x7f02004f;
+        public static final int pressed_laser_button=0x7f02004e;
     }
     public static final class id {
         public static final int action0=0x7f0d0058;
@@ -1645,7 +1641,7 @@ containing a value of this type.
         public static final int alertTitle=0x7f0d0030;
         public static final int always=0x7f0d001c;
         public static final int beginning=0x7f0d0019;
-        public static final int board=0x7f0d0052;
+        public static final int board=0x7f0d0051;
         public static final int buttonPanel=0x7f0d002b;
         public static final int cancel_action=0x7f0d0059;
         public static final int checkbox=0x7f0d0039;
@@ -1660,6 +1656,7 @@ containing a value of this type.
         public static final int edit_query=0x7f0d0043;
         public static final int end=0x7f0d001a;
         public static final int end_padder=0x7f0d0063;
+        public static final int exitButton=0x7f0d0053;
         public static final int expand_activities_button=0x7f0d0025;
         public static final int expanded_menu=0x7f0d0038;
         public static final int home=0x7f0d0004;
@@ -1668,7 +1665,7 @@ containing a value of this type.
         public static final int ifRoom=0x7f0d001e;
         public static final int image=0x7f0d0026;
         public static final int info=0x7f0d0057;
-        public static final int laserButton=0x7f0d0053;
+        public static final int laserButton=0x7f0d0052;
         public static final int line1=0x7f0d005d;
         public static final int line3=0x7f0d0061;
         public static final int listMode=0x7f0d0009;
@@ -1711,7 +1708,6 @@ containing a value of this type.
         public static final int src_atop=0x7f0d0016;
         public static final int src_in=0x7f0d0017;
         public static final int src_over=0x7f0d0018;
-        public static final int startPauseButton=0x7f0d0051;
         public static final int status_bar_latest_event_content=0x7f0d005a;
         public static final int submit_area=0x7f0d004c;
         public static final int tabMode=0x7f0d000b;
@@ -1805,13 +1801,14 @@ containing a value of this type.
         public static final int app_name=0x7f070014;
         public static final int change_login=0x7f070015;
         public static final int click_start=0x7f070016;
-        public static final int failure=0x7f070017;
-        public static final int give_IP=0x7f070018;
-        public static final int log_in=0x7f070019;
-        public static final int logged=0x7f07001a;
-        public static final int login_button=0x7f07001b;
-        public static final int pause=0x7f07001c;
-        public static final int start=0x7f07001d;
+        public static final int exit=0x7f070017;
+        public static final int failure=0x7f070018;
+        public static final int give_IP=0x7f070019;
+        public static final int log_in=0x7f07001a;
+        public static final int logged=0x7f07001b;
+        public static final int login_button=0x7f07001c;
+        public static final int pause=0x7f07001d;
+        public static final int start=0x7f07001e;
         public static final int status_bar_notification_info_overflow=0x7f070013;
     }
     public static final class style {

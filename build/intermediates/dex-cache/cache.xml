@@ -3,101 +3,87 @@
 
     <item
         jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.3.2\559b70ac8a0d5cad611da4223137a920147201ba\jackson-core-2.3.2.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="23.0.3"
         sha1="559b70ac8a0d5cad611da4223137a920147201ba">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.3.2_9e7717c361241e69906f76dfd25ad92142eac528\classes.dex" />
-    </item>
-    <item
-        jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.4.0_39bb2e5b544c6ef41ff76b8d5336cf07a132f885\classes.dex" />
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\jackson-core-2.3.2_9e7717c361241e69906f76dfd25ad92142eac528.jar" />
     </item>
     <item
         jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework.android\spring-android-core\1.0.1.RELEASE\e68f0e8e4b636ee30c4de58953be38d9b72a5e3b\spring-android-core-1.0.1.RELEASE.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="23.0.3"
         sha1="e68f0e8e4b636ee30c4de58953be38d9b72a5e3b">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\spring-android-core-1.0.1.RELEASE_78e785fd9a573e3988e5b4192c1c960d0267e9d6\classes.dex" />
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\spring-android-core-1.0.1.RELEASE_78e785fd9a573e3988e5b4192c1c960d0267e9d6.jar" />
     </item>
     <item
-        jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
+        jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
+        jumboMode="false"
         revision="23.0.3"
-        sha1="5bcfc4757d052af2c498c5274de5079f0c222b95">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_60ef9814b1e94891aa2199bf0f8977b449e3280d\classes.dex" />
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.4.0_39bb2e5b544c6ef41ff76b8d5336cf07a132f885.jar" />
     </item>
     <item
         jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework.android\spring-android-rest-template\1.0.1.RELEASE\e132d929bd181941f79b0d63edafb8a86ae6fd33\spring-android-rest-template-1.0.1.RELEASE.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="23.0.3"
         sha1="e132d929bd181941f79b0d63edafb8a86ae6fd33">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\spring-android-rest-template-1.0.1.RELEASE_e56469d223bb291a45378bbb8c8c2476fd352955\classes.dex" />
-    </item>
-    <item
-        jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.4.0_f6f4a7c0d7ea8d3b3b2daeacc20471c42dea78b1\classes.dex" />
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\spring-android-rest-template-1.0.1.RELEASE_e56469d223bb291a45378bbb8c8c2476fd352955.jar" />
     </item>
     <item
         jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="23.0.3"
         sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_6bca8a4b518c0aacd8d9768e704e16568d1cfe86\classes.dex" />
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.4.0_6bca8a4b518c0aacd8d9768e704e16568d1cfe86.jar" />
     </item>
     <item
-        jar="C:\Users\user\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
-        jumboMode="true"
+        jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="false"
         revision="23.0.3"
-        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_af3ff41e4f7c1efd311bba3c56bce336f57a0db8\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.3.2\c75edc740a6d8cb1cef6fa82fa594e0bce561916\jackson-databind-2.3.2.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="c75edc740a6d8cb1cef6fa82fa594e0bce561916">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-databind-2.3.2_57aacb35646339141babaf934acda1d520b17610\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.3.0\f5e853a20b60758922453d56f9ae1e64af5cb3da\jackson-annotations-2.3.0.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="f5e853a20b60758922453d56f9ae1e64af5cb3da">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-annotations-2.3.0_cdeb64f351b5d6ca8397a7e78571c61b6d2e94f8\classes.dex" />
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.4.0_f6f4a7c0d7ea8d3b3b2daeacc20471c42dea78b1.jar" />
     </item>
     <item
         jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="23.0.3"
         sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.4.0_98d28d5102579cafd365505521a87d4d3ac0b0c7\classes.dex" />
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-23.4.0_98d28d5102579cafd365505521a87d4d3ac0b0c7.jar" />
     </item>
     <item
-        jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
-        jumboMode="true"
+        jar="C:\Users\user\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="false"
         revision="23.0.3"
-        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_0ad73966ef71eb0f03e52fe93648152475a088a7\classes.dex" />
-    </item>
-    <item
-        jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="7438baa3a7c30f04c3940dc1464aa859a6efb0bf">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_068e17c0a503924e9cfc49635d8efec38ed0885e\classes.dex" />
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\support-annotations-23.4.0_af3ff41e4f7c1efd311bba3c56bce336f57a0db8.jar" />
     </item>
     <item
         jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.4\5fe28b9518e58819180a43a850fbc0dd24b7c050\commons-lang3-3.4.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="23.0.3"
         sha1="5fe28b9518e58819180a43a850fbc0dd24b7c050">
-        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\dex\debug\folders\1000\10\commons-lang3-3.4_7db3fd64edc365700f4b42bc437682ddb3399875\classes.dex" />
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\commons-lang3-3.4_7db3fd64edc365700f4b42bc437682ddb3399875.jar" />
+    </item>
+    <item
+        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.3.2\c75edc740a6d8cb1cef6fa82fa594e0bce561916\jackson-databind-2.3.2.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="c75edc740a6d8cb1cef6fa82fa594e0bce561916">
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\jackson-databind-2.3.2_57aacb35646339141babaf934acda1d520b17610.jar" />
+    </item>
+    <item
+        jar="C:\Users\user\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.3.0\f5e853a20b60758922453d56f9ae1e64af5cb3da\jackson-annotations-2.3.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="f5e853a20b60758922453d56f9ae1e64af5cb3da">
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\jackson-annotations-2.3.0_cdeb64f351b5d6ca8397a7e78571c61b6d2e94f8.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\Snake\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="F:\AndroidStudioProjects\Snake\app\build\intermediates\pre-dexed\debug\internal_impl-23.4.0_0ad73966ef71eb0f03e52fe93648152475a088a7.jar" />
     </item>
 
 </items>

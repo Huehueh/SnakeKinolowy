@@ -1,31 +1,94 @@
 package com.example.user.snake.states;
 
-import android.view.MotionEvent;
-
-import com.example.user.snake.Painter;
+import com.example.user.snake.communication.Direction;
+import com.example.user.snake.main.GameFragment;
+import com.example.user.snake.graphics.Painter;
+import com.example.user.snake.communication.Queries.Steering;
 
 /**
  * Created by user on 03.12.2016.
  */
 public class PlayState extends GameState {
 
+    public PlayState(GameFragment gameFragment)
+    {
+        super(gameFragment);
+        name = StateName.play;
+    }
+
     @Override
     public void init() {
 
     }
 
-    @Override
-    public void update(float delta) {
 
+    @Override
+    public synchronized void render(Painter g) {
+        g.paintBoard();
+        renderLaser(g);
+        renderMeal(g);
+        renderWalls(g);
+        renderEnemies(g);
+        renderSnake(g);
     }
 
     @Override
-    public void render(Painter g) {
-
+    public boolean addSteering(Direction dir)  {
+        if(checkIfOk(dir))
+        {
+            steerings.add(new Steering(dir, laser));
+            if(laser)
+            {
+                laser = false;
+            }
+        }
+        return true;
     }
 
     @Override
-    public boolean onTouch(MotionEvent e, int scaledX, int scaledY) {
-        return false;
+    public Steering getSteering() {
+        Steering steering;
+        if(!steerings.isEmpty())
+        {
+            steering = steerings.firstElement();
+            steerings.remove(0);
+        }
+        else
+        {
+            steering = new Steering(currentDirection, laser);
+            if(laser)
+            {
+                laser = false;
+            }
+        }
+        currentDirection = steering.getDir();
+
+        return steering;
+    }
+
+
+    private boolean checkIfOk(Direction newDirection)
+    {
+        if(steerings.isEmpty())
+        {
+            /*wykomentowac jezeli chcesz by klikniecie do tylu zatrzymywalo*/
+            if(newDirection.isOpposite(currentDirection) || newDirection == currentDirection)
+            {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            Direction oldDirection = steerings.lastElement().getDir();
+            if(oldDirection == newDirection || newDirection.isOpposite(oldDirection))
+            {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
     }
 }

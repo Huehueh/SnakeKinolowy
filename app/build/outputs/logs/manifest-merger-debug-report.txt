@@ -32,10 +32,10 @@ MERGED from [com.android.support:support-v4:23.4.0] F:\AndroidStudioProjects\Sna
 		ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:7:9-40
 	android:theme
 		ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:10:9-40
-activity#com.example.user.snake.LoginActivity
+activity#com.example.user.snake.main.LoginActivity
 ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:11:9-16:20
 	android:name
-		ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:11:19-70
+		ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:11:19-53
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
 ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:12:13-15:29
 action#android.intent.action.MAIN
@@ -46,10 +46,10 @@ category#android.intent.category.LAUNCHER
 ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:14:17-76
 	android:name
 		ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:14:27-74
-activity#com.example.user.snake.MainActivity
+activity#com.example.user.snake.main.MainActivity
 ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:17:9-22:20
 	android:name
-		ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:17:19-47
+		ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:17:19-52
 intent-filter#android.intent.action.MAIN+android.intent.category.DEFAULT
 ADDED from F:\AndroidStudioProjects\Snake\app\src\main\AndroidManifest.xml:18:13-21:29
 category#android.intent.category.DEFAULT

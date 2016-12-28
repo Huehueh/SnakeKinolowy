@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/startPauseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/start"/>
 
     <LinearLayout
         android:id="@+id/board"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"/>
 
     <Button
         android:id="@+id/laserButton"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/laser_button_custom"/>
+        android:layout_width="@dimen/laser_image_width"
+        android:layout_height="@dimen/laser_image_height"
+        android:background="@drawable/laser_button_custom"
+        android:layout_below="@id/board"
+        android:layout_centerHorizontal="true"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/laser_image_height"
+        android:text="@string/exit"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

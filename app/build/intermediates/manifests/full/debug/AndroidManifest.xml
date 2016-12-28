@@ -19,14 +19,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.user.snake.LoginActivity" >
+        <activity android:name="com.example.user.snake.main.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.user.snake.MainActivity" >
+        <activity android:name="com.example.user.snake.main.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
