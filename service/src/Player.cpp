@@ -51,6 +51,10 @@ Player::Player(){
 
 }
 
+Player::Player(int id_){
+    id = id_;
+}
+
 int Player::ID()const{
     return id;
 }
