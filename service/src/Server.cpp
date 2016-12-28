@@ -88,7 +88,7 @@ void Server::login(int id_new, http_request message){
             break;
         }
     }
-    Player newOne;
+    Player newOne(-1);
     //jest zajęte i to zajęte ma podane id to relogin
     if(!nameFree && found.ID()==id_new){
         newOne = found;
@@ -102,10 +102,7 @@ void Server::login(int id_new, http_request message){
     vector<Point> positions = newOne.positions;
     if(nameFree){
         players.push_back(newOne);
-    }else{
-        id =-1;
     }
-    cout<<id<<" "<<frameRate<<" "<<time2resp<<endl;
     message.reply(200, OutLoginJson(id, frameRate, mapSize, positions, time2resp).AsJSON());
 }
 
