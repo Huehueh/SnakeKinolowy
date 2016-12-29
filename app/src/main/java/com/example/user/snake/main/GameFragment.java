@@ -26,6 +26,7 @@ import com.example.user.snake.communication.Answers.SnakeMessage;
 import com.example.user.snake.communication.Queries.Results;
 import com.example.user.snake.communication.Queries.Steering;
 import com.example.user.snake.communication.Answers.User;
+import com.example.user.snake.graphics.Assets;
 import com.example.user.snake.graphics.GameView;
 import com.example.user.snake.states.DeathState;
 import com.example.user.snake.states.GameState;
@@ -131,6 +132,7 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         {
             case R.id.laserButton:
                 currentState.sendLaser();
+                Assets.playSound(Assets.laserId);
                 break;
             case R.id.exitButton:
                 setCurrentState(new PauseState(this));
@@ -334,9 +336,10 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                     break;
                 case UMARLES:
                     setCurrentState(new DeathState(this));
+                    Assets.playSound(Assets.deathId);
                     break;
                 case ZJADLES:
-
+                    Assets.playSound(Assets.eatId);
                     break;
                 case KONIEC_GRY:
                     endGame();

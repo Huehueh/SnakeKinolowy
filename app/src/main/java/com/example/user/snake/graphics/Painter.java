@@ -15,7 +15,6 @@ public class Painter {
     private Canvas canvas;
     Paint textPaint;
     Box box, boardBox;
-    ButtonBox button;
     int width, height;
 
     public Painter(Canvas canvas, int x, int y)
@@ -38,49 +37,64 @@ public class Painter {
         canvas.drawText(text, width/2, height/2, textPaint);
     }
 
-    public void paintButton(String text)
-    {
-        button = new ButtonBox(Color.BLUE, text, Color.BLACK);
-
-    }
-
+    //plansze
     public void paintBoard()
     {
         boardBox.draw(canvas);
     }
 
-    public void paint(Point position, int color)
+    //jeden element
+    public void paint(Point position, Box.BoxType type)
     {
-        box.setColor(color);
+        box.setType(type);
         box.setBounds(position.getX(), position.getY());
         box.draw(canvas);
+
     }
 
-    public void paint(Point [] positions, int color)
+    //np. sciany, jedzenie
+    public void paint(Point [] positions, Box.BoxType type)
     {
-        if(positions!=null) {
-            for (Point position : positions) {
-                paint(position, color);
-            }
-        }
-    }
-
-    public void paintWithHead(Point [] positions, int color, int color2)
-    {
-        paint(positions, color2);
         if(positions != null) {
-            if(positions.length > 0)
-                paint(positions[0], color);
+            for (Point position : positions) {
+                paint(position, type);
+            }
         }
     }
 
-    public void paintWithHead(List<Point []> positions, int color, int color2)
+    //wonsze
+    public void paintWithHead(Point [] positions)
     {
-        if(positions != null)
-        {
-            for (Point[] position : positions) {
-                paintWithHead(position, color, color2);
+        for (int i = 0; i< positions.length; i++) {
+            if(i==0)
+            {
+                paint(positions[i], Box.BoxType.HEAD);
             }
+            else{
+                paint(positions[i], Box.BoxType.SEGMENT);
+            }
+        }
+    }
+
+    private void paintEnemyWithHead(Point [] positions)
+    {
+        for (int i = 0; i< positions.length; i++) {
+            if(i==0)
+            {
+                paint(positions[i], Box.BoxType.HEAD_ENEMY);
+            }
+            else{
+                paint(positions[i], Box.BoxType.SEGMENT_ENEMY);
+            }
+        }
+    }
+
+
+    //wrogowie
+    public void paintWithHead(List<Point[]> positions)
+    {
+        for (Point[] position : positions) {
+            paintEnemyWithHead(position);
         }
     }
 }

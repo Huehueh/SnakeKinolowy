@@ -3,6 +3,7 @@ package com.example.user.snake.states;
 import android.graphics.Color;
 
 import com.example.user.snake.communication.Direction;
+import com.example.user.snake.graphics.Box;
 import com.example.user.snake.main.GameFragment;
 import com.example.user.snake.graphics.Painter;
 import com.example.user.snake.communication.Answers.Point;
@@ -95,27 +96,27 @@ public abstract class GameState {
     //painting
     protected void renderSnake(Painter p)
     {
-        p.paintWithHead(segments, Color.GRAY, Color.WHITE);
+        p.paintWithHead(segments);
     }
 
     protected void renderEnemies(Painter p)
     {
-        p.paintWithHead(enemies, Color.MAGENTA, Color.GREEN);
+        p.paintWithHead(enemies);
     }
 
     protected void renderWalls(Painter p)
     {
-        p.paint(walls, Color.BLUE);
+        p.paint(walls, Box.BoxType.WALL);
     }
 
     protected void renderLaser(Painter p)
     {
-        p.paint(lasers, Color.YELLOW);
+        p.paint(lasers, Box.BoxType.LASER);
     }
 
     protected void renderMeal(Painter p)
     {
-        p.paint(meals, Color.RED);
+        p.paint(meals, Box.BoxType.MEAL);
     }
 
 }

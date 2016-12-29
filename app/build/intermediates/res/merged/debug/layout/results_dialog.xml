@@ -7,13 +7,15 @@
         android:id="@+id/dialogListView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        style="@style/Base.Widget.AppCompat.ListView"/>
+        style="@style/Base.Widget.AppCompat.ListView"
+        android:layout_margin="20dp"/>
 
     <Button
         android:id="@+id/cancelDialogButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"/>
 
 </LinearLayout>

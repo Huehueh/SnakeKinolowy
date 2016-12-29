@@ -1,6 +1,3 @@
-CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\R$style$override.class
 CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
-CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\R$styleable$override.class
-CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\ResultsDialogFragment$override.class
-CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\android\support\v7\appcompat\R$style$override.class
-CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\R$override.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\graphics\Assets$override.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\main\GameFragment$override.class

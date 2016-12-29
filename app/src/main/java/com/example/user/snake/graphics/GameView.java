@@ -112,9 +112,11 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void renderGameImage() {
         Canvas screen = getHolder().lockCanvas();
-        screen.getClipBounds(gameImageDst);
-        screen.drawBitmap(gameImage, gameImageSrc, gameImageDst, null);
+        if(screen != null) {
+            screen.getClipBounds(gameImageDst);
+            screen.drawBitmap(gameImage, gameImageSrc, gameImageDst, null);
             getHolder().unlockCanvasAndPost(screen);
+        }
     }
 
 
