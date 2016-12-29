@@ -218,17 +218,26 @@
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="app_name">Snake</string>
+    <string name="cancel">Cancel</string>
     <string name="change_login">Login zajety</string>
     <string name="click_start">Kliknij START</string>
+    <string name="deaths">Deaths</string>
     <string name="exit">Exit game</string>
+    <string name="exit_question">Are you sure to exit application?</string>
+    <string name="exit_title">Exit game</string>
     <string name="failure">Umarles!</string>
     <string name="give_IP">Adres IP serwera</string>
     <string name="log_in">Podaj swoj login</string>
     <string name="logged">Zalogowany!</string>
     <string name="login_button">Zaloguj sie</string>
+    <string name="name">Name</string>
+    <string name="no">NO!!!!!</string>
     <string name="pause">Pauza</string>
+    <string name="points">Points</string>
+    <string name="results">Show results</string>
     <string name="start">Start</string>
     <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="yes">YES</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>

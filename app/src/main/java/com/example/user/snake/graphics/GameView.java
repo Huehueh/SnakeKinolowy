@@ -10,7 +10,7 @@ import android.view.SurfaceView;
 import android.view.WindowManager;
 
 import com.example.user.snake.main.GameFragment;
-import com.example.user.snake.communication.Point;
+import com.example.user.snake.communication.Answers.Point;
 
 /**
  * Created by user on 21.11.2016.

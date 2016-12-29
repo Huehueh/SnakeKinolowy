@@ -19,7 +19,14 @@
         android:layout_centerVertical="true"/>
 
     <Button
-        android:id="@+id/exitButton"
+        android:id="@+id/showResultsButton"
+        android:layout_width="@dimen/laser_image_height"
+        android:layout_height="match_parent"
+        android:text="@string/results"
+        android:layout_toStartOf="@+id/exitButton"/>
+
+    <Button
+        android:id="@id/exitButton"
         android:layout_width="@dimen/laser_image_width"
         android:layout_height="match_parent"
         android:text="@string/exit"

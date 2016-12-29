@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.example.user.snake.communication.Point;
+import com.example.user.snake.communication.Answers.Point;
 
 import java.util.List;
 

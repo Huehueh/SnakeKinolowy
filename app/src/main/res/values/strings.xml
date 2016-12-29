@@ -9,11 +9,24 @@
     <string name="pause">Pauza</string>
     <string name="start">Start</string>
     <string name="exit">Exit game</string>
+    <string name="results">Show results</string>
+    <string name="cancel">Cancel</string>
 
+    <!--lista z wynikami-->
+    <string name="name">Name</string>
+    <string name="points">Points</string>
+    <string name="deaths">Deaths</string>
 
     <!--teksty na umarcie-->
     <string name="click_start">Kliknij START</string>
     <string name="failure">Umarles!</string>
+
+    <!--exit dialog-->
+    <string name="exit_title">Exit game</string>
+    <string name="exit_question">Are you sure to exit application?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO!!!!!</string>
+
 
 
 

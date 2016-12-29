@@ -5,10 +5,10 @@ import android.graphics.Color;
 import com.example.user.snake.communication.Direction;
 import com.example.user.snake.main.GameFragment;
 import com.example.user.snake.graphics.Painter;
-import com.example.user.snake.communication.Point;
-import com.example.user.snake.communication.SnakeMessage;
+import com.example.user.snake.communication.Answers.Point;
+import com.example.user.snake.communication.Answers.SnakeMessage;
 import com.example.user.snake.communication.Queries.Steering;
-import com.example.user.snake.communication.User;
+import com.example.user.snake.communication.Answers.User;
 
 import org.apache.commons.lang3.ArrayUtils;
 

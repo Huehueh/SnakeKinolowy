@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.user.snake.R;
 import com.example.user.snake.communication.Queries.JsonMessage;
-import com.example.user.snake.communication.User;
+import com.example.user.snake.communication.Answers.User;
 import com.example.user.snake.communication.Queries.Username;
 import com.example.user.snake.names.BundleNames;
 

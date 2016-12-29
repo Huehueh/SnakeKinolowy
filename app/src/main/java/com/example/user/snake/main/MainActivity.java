@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.user.snake.R;
-import com.example.user.snake.communication.User;
+import com.example.user.snake.communication.Answers.User;
 import com.example.user.snake.graphics.MidiPlayer;
-import com.example.user.snake.main.GameFragment;
 
 
 public class MainActivity extends Activity {
