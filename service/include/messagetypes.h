@@ -118,6 +118,8 @@ struct OutScores{
             web::json::value score = web::json::value::object();
             score[U("name")] = web::json::value::string(players[i].Name());
             score[U("points")] = players[i].Points();
+            score[U("deaths")] = players[i].Deaths();
+            score[U("hits")] = players[i].Hits();
             scoresJson.push_back(score);
         }
         result[U("scores")] = web::json::value::array(scoresJson);

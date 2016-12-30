@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "Process.h"
+#include "Settings.h"
 #include "Player.h"
 
 using namespace web;
@@ -36,6 +36,8 @@ private:
 #else
 	bool DEBUG = false;
 #endif
+    Settings settings;
+    bool gameOver = false;
     void handle_get(http_request message);
     void score(int id, http_request message);
 

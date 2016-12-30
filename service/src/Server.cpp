@@ -14,9 +14,13 @@ Server::Server(utility::string_t url) : mapSize(20,20), m_listener(url), map(thi
     m_listener.support(methods::POST, std::bind(&Server::handle_post, this, std::placeholders::_1));
     m_listener.support(methods::DEL, std::bind(&Server::handle_delete, this, std::placeholders::_1));
 
-    Player newOne = Player(randId(), "player", map, 10);
-    int id = newOne.ID();
+    for(int i = 0 ;i < settings.startPlayers; i++)
+    {
+        Player newOne = Player(randId(), "player", map, 10, &settings);
+        int id = newOne.ID();
         players.push_back(newOne);
+        std::cout<<"robie wroga na starcie"<<endl;
+    }
 }
 int query_no = 0;
 
@@ -61,24 +65,21 @@ void Server::handle_post(http_request message)
             login( stoi(PreProItr->second), message);
             return;
         }
-        cout<<"POST"<<endl;
         PreProItr = query.find("move");
         if(PreProItr!=query.end())
         {
-            cout<<"move"<<endl;
             move( stoi(PreProItr->second), message);
             return;
         }
 
         std::cout<<"Message has wrong query"<<std::endl;
         message.reply(400, U("Bad Request, wrong query."));
-
     }
 }
 
 void Server::login(int id_new, http_request message){
     InLoginJson json = InLoginJson::FromJSON(message.extract_json().get());
-    cout<<json.name<<endl;
+    cout<<json.name<<" tries to login."<<endl;
     Player found;
     bool nameFree = true;
     for(Player player : players){
@@ -92,10 +93,12 @@ void Server::login(int id_new, http_request message){
     //jest zajęte i to zajęte ma podane id to relogin
     if(!nameFree && found.ID()==id_new){
         newOne = found;
+        cout<<"Was logged, ok."<<std::endl;
     } else{
         //jest wolne
         if(nameFree){
-            newOne = Player(randId(), json.name, map);
+            newOne = Player(randId(), json.name, map, 3, &settings);
+            cout<<"Logged and created successfully."<<endl;
         }
     }
     int id = newOne.ID();
@@ -109,11 +112,7 @@ void Server::login(int id_new, http_request message){
 void Server::move(int id, http_request message)
 {
     InMoveJson info = InMoveJson::FromJSON(message.extract_json().get());
-    cout<<id<<" ";
-    for(int i =0;i<players.size();i++){
-        cout<<players[i].ID()<<" ";
-    }
-    cout<<endl;
+
     int notification = 0;
     int tempPlayer = -1;
     for(int i = 0; i < players.size(); i++){
@@ -123,8 +122,17 @@ void Server::move(int id, http_request message)
         }
     }
     if(tempPlayer>-1){
-        notification = players[tempPlayer].Move(map, info.direction, info.shoot, players);
-
+        if(players.size()>=settings.players2Play){
+            if(!gameOver){
+                notification = players[tempPlayer].Move(map, info.direction, info.shoot, players);
+                if(notification == 4){
+                    gameOver = true;
+                    std::cout<<"Game Over "<<players[tempPlayer].Name()<<" won."<<std::endl;
+                }
+            }else{
+                notification = 4;
+            }
+        }
         vector<Point> meal, wall;
         meal.push_back(map.getMeal());
         for(int i = 0;i<players.size();i++){
@@ -187,6 +195,7 @@ void Server::reset(int id, http_request message)
 {
     if(playerIdExist(id)){
         players.clear();
+        gameOver = false;
         message.reply(200, U("Map cleared."));
     }
     message.reply(403, U("You can't clear the map."));

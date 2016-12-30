@@ -1,11 +1,9 @@
 #include "Player.h"
 
-// za co daje punkty
 
-// za co odejmuje punkty
-//smierc -1;
-
-Player::Player(int id_, string name_, Map map, int startLength){
+Player::Player(int id_, string name_, Map map, int startLength, Settings* settings_){
+    settings = settings_;
+    points = settings->basePoints;
     id = id_;
     name = name_;
     bool foundPlace = false;
@@ -64,7 +62,12 @@ string Player::Name()const{
 int Player::Points()const{
     return points;
 }
-
+int Player::Hits()const{
+    return deaths;
+}
+int Player::Deaths()const{
+    return deaths;
+}
 int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
     int happens=0;
     shot = false;
@@ -82,7 +85,7 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
             Point last = positions[positions.size()-1];
             if(map.eating(tempHead)){
                 happens = 3;
-                points++;
+                points += settings->eatPoints;
                 positions.push_back(Point(positions[positions.size()-1]));
             }
         //przesun cialko za glowa
@@ -98,11 +101,11 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
             //jezeli umarl
             if(dead){
                 happens = 2;
-                points--;
+                points+=settings->deathPoints;
             //zapisz czas smierci
                 std::chrono::time_point<std::chrono::system_clock> date = std::chrono::system_clock::now();
                 death_time = std::chrono::system_clock::to_time_t(date);
-                deathCount++;
+                deaths++;
             //cofnij weza
                 for(int i = 0; i < positions.size()-1; i++){
                     positions[i] = positions[i+1];
@@ -133,6 +136,10 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
         }
         //std::cout<<diff<<std::endl;
     }
+    if(points<settings->minPoints)
+        points = settings->minPoints;
+    if(points>=settings->winPoints)
+        happens = 4;
     return happens;
 }
 void Player::ShootLaser(vector<Player> &players, Map map){
@@ -146,17 +153,20 @@ void Player::ShootLaser(vector<Player> &players, Map map){
 
         positions.pop_back();
         for(int i =0;i<players.size();i++){
-           players[i].playerCut(laser);
+           if(players[i].playerCut(laser)){
+               points += settings->hitPoints;
+               hits++;
+           }
         }
         shot = true;
+        points += settings->shootPoints;
     }
 }
-void Player::playerCut(vector<Point> point){
+bool Player::playerCut(vector<Point> point){
     for(auto it= wall.begin(); it<wall.end();it++){
         for(int l = 0; l<point.size();l++){
             if(point[l] == *it){
                 wall.erase(it);
-                //std::cout<<"sciana "<<(*it).x<<std::endl;
                 it--;
                 l--;
             }
@@ -164,7 +174,7 @@ void Player::playerCut(vector<Point> point){
     }
 
     if(positions.size()<=3){
-        return;
+        return false;
     }
     vector<int> hits;
     vector<Point> newSnake;
@@ -213,8 +223,10 @@ void Player::playerCut(vector<Point> point){
                 meal.push_back(fallOff[i]);
             }
         }
+        points+=settings->damagePoints;
+        return true;
     }else{
-        return;
+        return false;
     }
 
 }
