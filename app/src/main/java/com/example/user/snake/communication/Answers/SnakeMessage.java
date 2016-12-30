@@ -1,5 +1,7 @@
 package com.example.user.snake.communication.Answers;
 
+import com.example.user.snake.communication.Notification;
+
 /**
  * Created by user on 08.11.2016.
  */
@@ -10,6 +12,7 @@ public class SnakeMessage{
     private Point[] wall;
     private Snake snake;
     private Snake [] enemies;
+    private int points;
 
     public int getNotification() {
         return notification;
@@ -35,5 +38,9 @@ public class SnakeMessage{
 
     public Snake[] getEnemies() {
         return enemies;
+    }
+
+    public int getPoints() {
+        return points;
     }
 }

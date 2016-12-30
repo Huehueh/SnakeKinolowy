@@ -11,13 +11,33 @@
         android:orientation="vertical"
         android:layout_alignParentTop="true"/>
 
-    <Button
-        android:id="@+id/laserButton"
-        android:layout_width="@dimen/laser_image_width"
-        android:layout_height="@dimen/laser_image_height"
-        android:background="@drawable/laser_button_custom"
+    <LinearLayout
+        android:id="@+id/buttonPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/board"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/laserButton"
+            android:layout_width="@dimen/laser_image_width"
+            android:layout_height="@dimen/laser_image_height"
+            android:background="@drawable/laser_button_custom"/>
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="@dimen/laser_image_height"
+            android:layout_height="@dimen/laser_image_height"
+            android:background="@drawable/reset"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/pointsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/WonszTextStyle"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/showResultsButton"
@@ -25,13 +45,15 @@
         android:layout_height="match_parent"
         android:text="@string/results"
         android:layout_above="@+id/exitButton"
-        android:layout_below="@id/laserButton"/>
+        android:layout_below="@id/buttonPanel"
+        style="@style/WonszButtonStyle"/>
 
     <Button
         android:id="@id/exitButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/laser_image_height"
         android:text="@string/exit"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        style="@style/WonszButtonStyle"/>
 
 </RelativeLayout>

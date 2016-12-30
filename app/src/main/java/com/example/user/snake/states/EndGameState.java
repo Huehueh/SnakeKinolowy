@@ -2,8 +2,8 @@ package com.example.user.snake.states;
 
 import com.example.user.snake.communication.Direction;
 import com.example.user.snake.communication.Queries.Steering;
-import com.example.user.snake.graphics.Assets;
-import com.example.user.snake.graphics.Painter;
+import com.example.user.snake.assets.Assets;
+import com.example.user.snake.user_interface.Painter;
 import com.example.user.snake.main.GameFragment;
 
 /**
@@ -16,12 +16,20 @@ public class EndGameState extends GameState {
 
     @Override
     public void init() {
+        super.init();
+        Assets.stopMusic();
         Assets.playSound(Assets.endGameId);
+        gameFragment.running = false;
         gameFragment.askForResults();
     }
 
     @Override
     public void render(Painter g) {
+        g.paintBoard();
+        renderMeal(g);
+        renderWalls(g);
+        renderEnemies(g);
+        renderSnake(g);
         g.paintText("THE END", Painter.TextStyle.WONSZ);
 
     }

@@ -3,7 +3,6 @@ package com.example.user.snake.main;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -11,30 +10,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.user.snake.R;
-import com.example.user.snake.ResultsDialogFragment;
 import com.example.user.snake.communication.Answers.Score;
 import com.example.user.snake.communication.Answers.ScoreMessage;
 import com.example.user.snake.communication.Answers.SendingTask;
-import com.example.user.snake.communication.Direction;
 import com.example.user.snake.communication.Answers.Point;
 import com.example.user.snake.communication.Queries.LogOut;
 import com.example.user.snake.communication.Answers.SnakeMessage;
+import com.example.user.snake.communication.Queries.Reset;
 import com.example.user.snake.communication.Queries.Results;
 import com.example.user.snake.communication.Queries.Steering;
 import com.example.user.snake.communication.Answers.User;
-import com.example.user.snake.graphics.Assets;
-import com.example.user.snake.graphics.GameView;
-import com.example.user.snake.states.DeathState;
-import com.example.user.snake.states.EndGameState;
+import com.example.user.snake.assets.Assets;
+import com.example.user.snake.user_interface.GameView;
 import com.example.user.snake.states.GameState;
-import com.example.user.snake.states.PauseState;
-import com.example.user.snake.states.PlayState;
-import com.example.user.snake.states.WaitingState;
 
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 
 /**
@@ -43,19 +39,20 @@ import org.springframework.web.client.RestClientException;
 public class GameFragment extends Fragment implements View.OnClickListener{
 
     public int TIME_TO_RESP;
-    private Point boardSize;
     public int deltaTime = 300; //ms default
 
     public MainActivity mainActivity;
     SendingTask task = null;
-
-    public GameState currentState;
-    public boolean running = true;
+    public GameState currentState = null;
+    public boolean running;
 
     //layout
     LinearLayout boardView;
+    Button resetButton;
+    TextView pointsTextView;
 
     public static String TAG = "GameFragment";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +64,10 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         rootView.findViewById(R.id.exitButton).setOnClickListener(this);
         rootView.findViewById(R.id.showResultsButton).setOnClickListener(this);
 
+        resetButton = (Button) rootView.findViewById(R.id.resetButton);
+        resetButton.setOnClickListener(this);
+        pointsTextView = (TextView) rootView.findViewById(R.id.pointsTextView);
+
         return rootView;
     }
 
@@ -74,40 +75,49 @@ public class GameFragment extends Fragment implements View.OnClickListener{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setCurrentState(new PlayState(this));
+        startPlaying();
         //User Info
         mainActivity = (MainActivity) getActivity();
-        getInfoFromUser(mainActivity.user);
-        putBoard();
+        initializeData(mainActivity.user);
+
         sendMessageThread.start();
     }
 
-    private void getInfoFromUser(User user)
+    private void initializeData(User user)
     {
-        boardSize = user.getSize();
+        currentState.setInitialState(mainActivity.user);
         deltaTime = (int)(1000/user.getFrameRate());
         TIME_TO_RESP = user.getTime2resp();
-        currentState.setInitialState(mainActivity.user);
+        if(user.getLogin().equals(getString(R.string.admin_name)))
+        {
+            resetButton.setVisibility(View.VISIBLE);
+        }
+        putBoard(user.getSize());
     }
 
-    public void setCurrentState(GameState newState)
+    public void startPlaying()
     {
-        System.gc();
+        setCurrentState(GameState.StateName.play);
+    }
+
+    public void setCurrentState(GameState.StateName stateName)
+    {
         if(currentState != null) {
-            if (currentState.getName() != newState.getName()) {
-                currentState = newState;
+
+            if(currentState.getName() != stateName && currentState.getName() != GameState.StateName.endGame)
+            {
+                currentState = GameState.newInstance(this, stateName);
                 currentState.init();
             }
         }
         else
         {
-            currentState = newState;
+            currentState = GameState.newInstance(this, stateName);
             currentState.init();
         }
-        Log.v(TAG, currentState.getName().toString());
     }
 
-    public void putBoard()
+    public void putBoard(Point boardSize)
     {
         GameView board = new GameView(this, getActivity(), boardSize);
         boardView.setLayoutParams(new RelativeLayout.LayoutParams(board.getBoardWidth(), board.getBoardWidth()));
@@ -116,17 +126,7 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         imm.hideSoftInputFromWindow(board.getWindowToken(), 0);
     }
 
-    //USTAWIANIE KIERUNKU
-
-    public void setNewDirection(Direction dir)
-    {
-        currentState.addSteering(dir);
-    }
-
-    public void setNewDirection()
-    {
-        setNewDirection(Direction.NO_DIRECTION);
-    }
+    //KOMUNIKACJA
 
     @Override
     public void onClick(View v) {
@@ -134,26 +134,57 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         {
             case R.id.laserButton:
                 currentState.sendLaser();
-                Assets.playSound(Assets.laserId);
                 break;
             case R.id.exitButton:
-                setCurrentState(new PauseState(this));
                 showLogOutDialog();
                 break;
             case R.id.showResultsButton:
                 askForResults();
                 break;
+            case R.id.resetButton:
+                task = new ResetTask();
+                task.execute();
+                break;
         }
     }
 
-    public void askForResults()
+    //RESET PLANSZY
+
+    public class ResetTask extends SendingTask<Void>
     {
-        task = new AskForResultsTask();
-        task.execute();
+        Reset reset;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            running = false;
+            reset = new Reset();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+            try
+            {
+                restTemplate.delete(reset.getQuery(), reset);
+            }
+            catch (ResourceAccessException e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mainActivity.startLoginActivity();
+        }
     }
+
+    //WYLOGOWANIE
 
     private void showLogOutDialog()
     {
+        setCurrentState(GameState.StateName.pause);
         new AlertDialog.Builder(mainActivity)
                 .setTitle(getText(R.string.exit_title))
                 .setMessage(getText(R.string.exit_question))
@@ -161,62 +192,105 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                 .setPositiveButton(getText(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        endGame();
-                        logOut();
-                        mainActivity.finish();
+                        logOutAndClose();
                     }
                 })
                 .setNegativeButton(getText(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        onExitDialog();
+                        setCurrentState(GameState.StateName.play);
                     }
                 })
                 .show();
     }
 
-    public void onExitDialog()
-    {
-        if(currentState.getName() != GameState.StateName.endGame) {
-            running = true;
-            setCurrentState(new PlayState(this));
-        }
-    }
-
-    public void endGame()
-    {
-        running = false;
-        if(task != null)
-        {
-            task.cancel(true);
-        }
-        if(sendMessageThread != null)
-        {
-            try {
-                sendMessageThread.join();
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void logOut()
+    public void logOutAndClose()
     {
         task = new LogOutTask();
         task.execute();
     }
 
+    public class LogOutTask extends SendingTask<Void>
+    {
+        LogOut logOut;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            running = false;
+            logOut = new LogOut();
+        }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        endGame();
+        @Override
+        protected Void doInBackground(Object... params) {
+            try{
+                restTemplate.delete(logOut.getQuery(), logOut);
+            }
+            catch(RestClientException e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mainActivity.startLoginActivity();
+        }
     }
 
-    //KOMUNIKACJA
+    //PROSBA O PUNKTY
+
+    public void askForResults()
+    {
+        task = new AskForResultsTask();
+        task.execute();
+    }
+
+    public class AskForResultsTask extends SendingTask<ScoreMessage>
+    {
+        Results results;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            results = new Results();
+        }
+
+        @Override
+        protected ScoreMessage doInBackground(Object... params) {
+            ScoreMessage message = null;
+            try {
+                message = restTemplate.getForObject(results.getQuery(), ScoreMessage.class);
+            }
+            catch(RestClientException e)
+            {
+                e.printStackTrace();
+            }
+            return message;
+        }
+
+        @Override
+        protected void onPostExecute(ScoreMessage scoreMessage) {
+            super.onPostExecute(scoreMessage);
+            understandScoreMessage(scoreMessage);
+        }
+    }
+
+    public void understandScoreMessage(ScoreMessage message)
+    {
+
+        setCurrentState(GameState.StateName.pause);
+        if(message!= null) {
+            for (Score score : message.getScores()) {
+                Log.v("SCORES", score.getName() + " " + score.getPoints() + " " + score.getDeaths());
+            }
+            ResultsDialogFragment fragment = ResultsDialogFragment.newInstance(message, this);
+            fragment.show(getFragmentManager(), "dialog");
+        }
+    }
+
+    //STEROWANIE
 
     Thread sendMessageThread = new Thread(new Runnable() {
         @Override
@@ -236,74 +310,6 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         }
     });
 
-    public class LogOutTask extends SendingTask<Void>
-    {
-        LogOut logOut;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            logOut = new LogOut();
-        }
-
-        @Override
-        protected Void doInBackground(Object... params) {
-            try{
-                restTemplate.delete(logOut.getQuery(), logOut);
-            }
-            catch(RestClientException e)
-            {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
-    public class AskForResultsTask extends SendingTask<ScoreMessage>
-    {
-        Results results;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            results = new Results();
-        }
-
-        @Override
-        protected ScoreMessage doInBackground(Object... params) {
-            ScoreMessage message = null;
-            try {
-                message = restTemplate.getForObject(results.getQuery(), ScoreMessage.class);
-                if(message != null)
-                    Log.v("SCORE", message.toString());
-            }
-            catch(RestClientException e)
-            {
-                e.printStackTrace();
-            }
-            return message;
-        }
-
-        @Override
-        protected void onPostExecute(ScoreMessage scoreMessage) {
-            super.onPostExecute(scoreMessage);
-            understandScoreMessage(scoreMessage);
-        }
-    }
-
-    public void understandScoreMessage(ScoreMessage message)
-    {
-        if(message!= null) {
-            if(currentState.getName() != GameState.StateName.endGame) {
-                setCurrentState(new PauseState(this));
-            }
-            for (Score score : message.getScores()) {
-                Log.v("SCORES", score.getName() + " " + score.getPoints() + " " + score.getDeaths());
-            }
-            ResultsDialogFragment fragment = ResultsDialogFragment.newInstance(message, this);
-            fragment.show(getFragmentManager(), "dialog");
-        }
-    }
-
     public class SendSteeringTask extends SendingTask<SnakeMessage> {
 
         Steering steering;
@@ -318,7 +324,9 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         protected SnakeMessage doInBackground(Object... params) {
             SnakeMessage message = null;
             try{
-            message = restTemplate.postForObject(steering.getQuery(), steering, SnakeMessage.class);
+                if(running) {
+                    message = restTemplate.postForObject(steering.getQuery(), steering, SnakeMessage.class);
+                }
             }
             catch(RestClientException e)
             {
@@ -335,27 +343,33 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    public void understandSnakeMessage(SnakeMessage snakeMessage)
+    public void understandSnakeMessage(final SnakeMessage snakeMessage)
     {
         if(snakeMessage != null) {
             switch (snakeMessage.getSnakeNotification()) {
                 case OZYLES:
-                    setCurrentState(new PlayState(this));
                     break;
                 case UMARLES:
-                    setCurrentState(new DeathState(this));
+                    setCurrentState(GameState.StateName.death);
                     break;
                 case ZJADLES:
                     Assets.playSound(Assets.eatId);
                     break;
                 case KONIEC_GRY:
-                    setCurrentState(new EndGameState(this));
+                    setCurrentState(GameState.StateName.endGame);
                     break;
                 case ZA_MALO_GRACZY:
-                    setCurrentState(new WaitingState(this));
+                    setCurrentState(GameState.StateName.waiting);
                     break;
             }
             currentState.setStates(snakeMessage);
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    pointsTextView.setText(getText(R.string.your_result) + " " + snakeMessage.getPoints());
+                }
+            });
+
         }
     }
 

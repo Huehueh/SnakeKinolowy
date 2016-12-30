@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.example.user.snake.R;
 import com.example.user.snake.communication.Answers.User;
-import com.example.user.snake.graphics.Assets;
+import com.example.user.snake.assets.Assets;
 
 
 public class MainActivity extends Activity {
@@ -37,6 +37,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+
+    public void startLoginActivity()
+    {
         Assets.stopMusic();
+        //TODO kiedys odkomentowac ale sprawdzic dlaczego nie dziala
+//        Intent intent = new Intent(this, LoginActivity.class);
+//        startActivity(intent);
+        finish();
     }
 }

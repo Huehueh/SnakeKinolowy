@@ -7,7 +7,7 @@ public class Reset extends JsonMessage {
 
     public Reset()
     {
-        super("?score=");
+        super("?reset=");
         TAG = "Reset";
     }
 

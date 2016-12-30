@@ -1,8 +1,9 @@
 package com.example.user.snake.states;
 
 import com.example.user.snake.communication.Direction;
+import com.example.user.snake.assets.Assets;
 import com.example.user.snake.main.GameFragment;
-import com.example.user.snake.graphics.Painter;
+import com.example.user.snake.user_interface.Painter;
 import com.example.user.snake.communication.Queries.Steering;
 
 /**
@@ -10,14 +11,15 @@ import com.example.user.snake.communication.Queries.Steering;
  */
 public class PlayState extends GameState {
 
-    public PlayState(GameFragment gameFragment)
+    protected PlayState(GameFragment gameFragment)
     {
         super(gameFragment, StateName.play);
     }
 
     @Override
     public void init() {
-
+        super.init();
+        gameFragment.running = true;
     }
 
 
@@ -29,6 +31,12 @@ public class PlayState extends GameState {
         renderWalls(g);
         renderEnemies(g);
         renderSnake(g);
+    }
+
+    @Override
+    public void sendLaser() {
+        laser = true;
+        Assets.playSound(Assets.laserId);
     }
 
     @Override

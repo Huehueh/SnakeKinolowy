@@ -2,7 +2,7 @@ package com.example.user.snake.states;
 
 import com.example.user.snake.communication.Direction;
 import com.example.user.snake.communication.Queries.Steering;
-import com.example.user.snake.graphics.Painter;
+import com.example.user.snake.user_interface.Painter;
 import com.example.user.snake.main.GameFragment;
 
 /**
@@ -17,6 +17,7 @@ public class PauseState extends GameState {
 
     @Override
     public void init() {
+        super.init();
         steerings.removeAllElements();
     }
 
@@ -28,7 +29,7 @@ public class PauseState extends GameState {
         renderEnemies(g);
         renderSnake(g);
         renderLaser(g);
-        g.paintText("PAUSE", Painter.TextStyle.NORMAL);
+        g.paintText("PAUSE", Painter.TextStyle.WONSZ);
     }
 
     @Override

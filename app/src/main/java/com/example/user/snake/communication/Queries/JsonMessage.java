@@ -26,7 +26,7 @@ public class JsonMessage {
         builder.append(address);
         builder.append(query);
         builder.append(id);
-        Log.v(TAG, builder.toString());
+        //Log.v(TAG, builder.toString());
         return builder.toString();
     }
 

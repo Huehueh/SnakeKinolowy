@@ -1,9 +1,9 @@
 package com.example.user.snake.states;
 
 import com.example.user.snake.communication.Direction;
-import com.example.user.snake.graphics.Assets;
+import com.example.user.snake.assets.Assets;
 import com.example.user.snake.main.GameFragment;
-import com.example.user.snake.graphics.Painter;
+import com.example.user.snake.user_interface.Painter;
 import com.example.user.snake.communication.Queries.Steering;
 
 /**
@@ -20,6 +20,7 @@ public class DeathState extends GameState {
 
     @Override
     public void init() {
+        super.init();
         Assets.playSound(Assets.deathId);
         steerings.removeAllElements();
 
@@ -36,7 +37,7 @@ public class DeathState extends GameState {
         renderEnemies(g);
         renderSnake(g);
         renderLaser(g);
-        g.paintText("You are dead \n" + deathCount, Painter.TextStyle.NORMAL);
+        g.paintText("You are dead \n" + deathCount, Painter.TextStyle.WONSZ);
 
     }
 
@@ -65,14 +66,7 @@ public class DeathState extends GameState {
                     e.printStackTrace();
                 }
             }
-            try {
-                join();
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-            setCurrentState(new PlayState(gameFragment));
+            gameFragment.startPlaying();
         }
     }
 }

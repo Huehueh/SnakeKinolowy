@@ -17,7 +17,7 @@ import com.example.user.snake.R;
 import com.example.user.snake.communication.Queries.JsonMessage;
 import com.example.user.snake.communication.Answers.User;
 import com.example.user.snake.communication.Queries.Username;
-import com.example.user.snake.names.BundleNames;
+import com.example.user.snake.assets.BundleNames;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.ResourceAccessException;
@@ -30,11 +30,12 @@ public class LoginActivity extends Activity{
 
     EditText ipEditText, loginEditText;
     TextView info;
-    String TAG = "LoginAc";
+    String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "OnCreate");
         setContentView(R.layout.login_layout);
 
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
@@ -98,12 +99,12 @@ public class LoginActivity extends Activity{
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(User.USER, user);
         startActivity(intent);
-        finish();
+        this.finish();
     }
 
     private void failedConnectionError()
     {
-        setInfo("Nie mozna sie polaczyc z serwerem!");
+        setInfo("No connection with server!");
     }
 
     private void setInfo(final String text)
@@ -155,6 +156,7 @@ public class LoginActivity extends Activity{
 
             if(user != null) {
                 if (user.getId() > -1) {
+                    user.setLogin(username.getLogin());
                     try {
                         info.setText(getText(R.string.logged));
                     } catch (NullPointerException e) {
