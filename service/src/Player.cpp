@@ -63,7 +63,7 @@ int Player::Points()const{
     return points;
 }
 int Player::Hits()const{
-    return deaths;
+    return hits;
 }
 int Player::Deaths()const{
     return deaths;

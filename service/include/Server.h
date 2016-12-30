@@ -13,7 +13,7 @@ using namespace http::experimental::listener;
 class Server
 {
 public:
-    Server():mapSize(20,20), map(this, mapSize), frameRate(3), time2resp(10) {}
+    //Server():mapSize(20,20), map(this, mapSize), frameRate(3), time2resp(10) {}
 /**
  * @brief Constructor - makes server with given URL
  * @param url
@@ -26,17 +26,19 @@ public:
     pplx::task<void> close() { return m_listener.close(); }
 
     std::vector<Player> players;
+
+    Settings settings;
     Point mapSize;
     float frameRate;
     int time2resp;
     Map map;
+
 private:
 #if DEBUG
 	bool DEBUG = true;
 #else
 	bool DEBUG = false;
 #endif
-    Settings settings;
     bool gameOver = false;
     void handle_get(http_request message);
     void score(int id, http_request message);

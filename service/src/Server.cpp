@@ -7,7 +7,8 @@ using namespace utility;
 using namespace http;
 using namespace web::http::experimental::listener;
 
-Server::Server(utility::string_t url) : mapSize(20,20), m_listener(url), map(this, mapSize), frameRate(3), time2resp(10)
+Server::Server(utility::string_t url) : settings(), mapSize(settings.size, settings.size), m_listener(url),
+    map(this, mapSize), frameRate(settings.frameRate), time2resp(settings.time2resp)
 {
     m_listener.support(methods::GET, std::bind(&Server::handle_get, this, std::placeholders::_1));
     //m_listener.support(methods::PUT, std::bind(&Server::handle_put, this, std::placeholders::_1));

@@ -13,6 +13,7 @@
 class Settings{
 public:
     Settings();
+    //punktacje
     int minPoints;
     int winPoints;
     int basePoints;
@@ -22,7 +23,13 @@ public:
     int hitPoints;
     int deathPoints;
 
+    //wazne ustawienia
     int players2Play;
+    int size;
+    float frameRate;
+    int time2resp;
+
+    //ustawienia debugu
     int startPlayers;
 
     void Load();
