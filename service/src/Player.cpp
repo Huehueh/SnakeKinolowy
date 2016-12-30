@@ -69,7 +69,7 @@ int Player::Deaths()const{
     return deaths;
 }
 int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
-    int happens=0;
+    int happens=1;
     shot = false;
     //cout<<"umarl "<<dead<<endl;
      
@@ -126,7 +126,7 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
             }
     	}
     }else{
-        happens = 0;
+        happens = 1;
 	    //sprawdz czas
         std::chrono::time_point<std::chrono::system_clock> date = std::chrono::system_clock::now();
         double diff = std::difftime(std::chrono::system_clock::to_time_t(date), death_time);

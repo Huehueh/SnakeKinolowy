@@ -114,7 +114,7 @@ void Server::move(int id, http_request message)
 {
     InMoveJson info = InMoveJson::FromJSON(message.extract_json().get());
 
-    int notification = 0;
+    int notification = 1;
     int tempPlayer = -1;
     for(int i = 0; i < players.size(); i++){
         if(players[i].ID() == id){
