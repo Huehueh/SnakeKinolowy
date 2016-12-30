@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/snakeName"
             android:text="1"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/column_width"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:gravity="center_horizontal"/>
@@ -20,7 +20,7 @@
         <TextView
             android:id="@+id/snakePoints"
             android:text="2"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/column_width"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/snakeName"
             android:gravity="center_horizontal"/>
@@ -28,9 +28,17 @@
         <TextView
             android:id="@+id/snakeDeaths"
             android:text="3"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/column_width"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/snakePoints"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/snakeHits"
+            android:text="4"
+            android:layout_width="@dimen/column_width"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/snakeDeaths"
             android:gravity="center_horizontal"/>
 
     </RelativeLayout>

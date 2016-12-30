@@ -26,7 +26,9 @@ public abstract class GameState {
     public enum StateName {
         play,
         pause,
-        death
+        death,
+        waiting,
+        endGame
     }
     protected StateName name;
 
@@ -41,10 +43,11 @@ public abstract class GameState {
     Direction currentDirection = Direction.NO_DIRECTION;
     boolean laser = false;
 
-    public GameState(GameFragment _gameFragment)
+    public GameState(GameFragment _gameFragment, StateName _name)
     {
         this.gameFragment = _gameFragment;
         steerings = new Stack<>();
+        this.name = _name;
     }
 
     public void setCurrentState(GameState newState)

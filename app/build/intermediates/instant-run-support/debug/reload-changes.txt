@@ -1,3 +1,7 @@
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\main\GameFragment$3$override.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\main\GameFragment$SendSteeringTask$override.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\main\GameFragment$AskForResultsTask$override.class
 CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
-CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\graphics\Assets$override.class
 CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\main\GameFragment$override.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\main\GameFragment$LogOutTask$override.class
+CHANGED,F:\AndroidStudioProjects\Snake\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\user\snake\main\GameFragment$4$override.class

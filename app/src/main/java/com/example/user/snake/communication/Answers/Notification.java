@@ -10,7 +10,8 @@ public enum Notification {
     OZYLES(1),
     UMARLES(2),
     ZJADLES(3),
-    KONIEC_GRY(4);
+    KONIEC_GRY(4),
+    ZA_MALO_GRACZY(5);
 
     private int value;
     Notification(int value)

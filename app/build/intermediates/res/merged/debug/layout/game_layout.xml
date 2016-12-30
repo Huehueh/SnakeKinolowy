@@ -22,9 +22,10 @@
     <Button
         android:id="@+id/showResultsButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/laser_image_height"
+        android:layout_height="match_parent"
         android:text="@string/results"
-        android:layout_above="@+id/exitButton"/>
+        android:layout_above="@+id/exitButton"
+        android:layout_below="@id/laserButton"/>
 
     <Button
         android:id="@id/exitButton"

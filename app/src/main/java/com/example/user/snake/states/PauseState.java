@@ -12,8 +12,7 @@ public class PauseState extends GameState {
 
     public PauseState(GameFragment gameFragment)
     {
-        super(gameFragment);
-        name = StateName.pause;
+        super(gameFragment, StateName.pause);
     }
 
     @Override
@@ -29,7 +28,7 @@ public class PauseState extends GameState {
         renderEnemies(g);
         renderSnake(g);
         renderLaser(g);
-        g.paintText("PAUSE");
+        g.paintText("PAUSE", Painter.TextStyle.NORMAL);
     }
 
     @Override

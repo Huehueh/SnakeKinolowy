@@ -1,6 +1,7 @@
 package com.example.user.snake.states;
 
 import com.example.user.snake.communication.Direction;
+import com.example.user.snake.graphics.Assets;
 import com.example.user.snake.main.GameFragment;
 import com.example.user.snake.graphics.Painter;
 import com.example.user.snake.communication.Queries.Steering;
@@ -14,12 +15,12 @@ public class DeathState extends GameState {
 
     public DeathState(GameFragment gameFragment)
     {
-        super(gameFragment);
-        name = StateName.death;
+        super(gameFragment, StateName.death);
     }
 
     @Override
     public void init() {
+        Assets.playSound(Assets.deathId);
         steerings.removeAllElements();
 
         deathCount = 10;
@@ -35,7 +36,7 @@ public class DeathState extends GameState {
         renderEnemies(g);
         renderSnake(g);
         renderLaser(g);
-        g.paintText("You are dead \n" + deathCount);
+        g.paintText("You are dead \n" + deathCount, Painter.TextStyle.NORMAL);
 
     }
 

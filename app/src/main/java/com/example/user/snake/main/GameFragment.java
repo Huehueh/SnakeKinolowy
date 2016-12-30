@@ -29,9 +29,11 @@ import com.example.user.snake.communication.Answers.User;
 import com.example.user.snake.graphics.Assets;
 import com.example.user.snake.graphics.GameView;
 import com.example.user.snake.states.DeathState;
+import com.example.user.snake.states.EndGameState;
 import com.example.user.snake.states.GameState;
 import com.example.user.snake.states.PauseState;
 import com.example.user.snake.states.PlayState;
+import com.example.user.snake.states.WaitingState;
 
 import org.springframework.web.client.RestClientException;
 
@@ -139,10 +141,15 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                 showLogOutDialog();
                 break;
             case R.id.showResultsButton:
-                task = new AskForResultsTask();
-                task.execute();
+                askForResults();
                 break;
         }
+    }
+
+    public void askForResults()
+    {
+        task = new AskForResultsTask();
+        task.execute();
     }
 
     private void showLogOutDialog()
@@ -171,8 +178,10 @@ public class GameFragment extends Fragment implements View.OnClickListener{
 
     public void onExitDialog()
     {
-        running = true;
-        setCurrentState(new PlayState(this));
+        if(currentState.getName() != GameState.StateName.endGame) {
+            running = true;
+            setCurrentState(new PlayState(this));
+        }
     }
 
     public void endGame()
@@ -284,7 +293,9 @@ public class GameFragment extends Fragment implements View.OnClickListener{
     public void understandScoreMessage(ScoreMessage message)
     {
         if(message!= null) {
-            setCurrentState(new PauseState(this));
+            if(currentState.getName() != GameState.StateName.endGame) {
+                setCurrentState(new PauseState(this));
+            }
             for (Score score : message.getScores()) {
                 Log.v("SCORES", score.getName() + " " + score.getPoints() + " " + score.getDeaths());
             }
@@ -327,22 +338,21 @@ public class GameFragment extends Fragment implements View.OnClickListener{
     public void understandSnakeMessage(SnakeMessage snakeMessage)
     {
         if(snakeMessage != null) {
-            //STANY
             switch (snakeMessage.getSnakeNotification()) {
-                case NIC:
-                    break;
                 case OZYLES:
                     setCurrentState(new PlayState(this));
                     break;
                 case UMARLES:
                     setCurrentState(new DeathState(this));
-                    Assets.playSound(Assets.deathId);
                     break;
                 case ZJADLES:
                     Assets.playSound(Assets.eatId);
                     break;
                 case KONIEC_GRY:
-                    endGame();
+                    setCurrentState(new EndGameState(this));
+                    break;
+                case ZA_MALO_GRACZY:
+                    setCurrentState(new WaitingState(this));
                     break;
             }
             currentState.setStates(snakeMessage);

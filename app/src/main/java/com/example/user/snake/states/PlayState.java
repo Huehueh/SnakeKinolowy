@@ -12,8 +12,7 @@ public class PlayState extends GameState {
 
     public PlayState(GameFragment gameFragment)
     {
-        super(gameFragment);
-        name = StateName.play;
+        super(gameFragment, StateName.play);
     }
 
     @Override

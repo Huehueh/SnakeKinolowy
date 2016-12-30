@@ -69,9 +69,11 @@ public class GameView extends SurfaceView implements Runnable {
         display.getSize(screenSize);
         if (screenSize.x < screenSize.y) {
             boardWidth = screenSize.x;
+            Painter.textSize = x*4;
             Box.setMultiplier((int) Math.floor((double) boardWidth / x));
         } else {
             boardWidth = screenSize.y;
+            Painter.textSize = y*4;
             Box.setMultiplier((int) Math.floor((double) boardWidth / y));
         }
     }

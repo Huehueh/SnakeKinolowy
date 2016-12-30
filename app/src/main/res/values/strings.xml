@@ -16,6 +16,7 @@
     <string name="name">Name</string>
     <string name="points">Points</string>
     <string name="deaths">Deaths</string>
+    <string name="hits">Hits</string>
 
     <!--teksty na umarcie-->
     <string name="click_start">Kliknij START</string>

@@ -29,11 +29,13 @@ public class ResultsAdapter extends ArrayAdapter<Score>{
         TextView name = (TextView)rowView.findViewById(R.id.snakeName);
         TextView points = (TextView)rowView.findViewById(R.id.snakePoints);
         TextView deaths = (TextView)rowView.findViewById(R.id.snakeDeaths);
+        TextView hits = (TextView)rowView.findViewById(R.id.snakeHits);
 
         Score score = scores[position];
         name.setText(score.getName());
         points.setText(score.getPoints()+"");
         deaths.setText(score.getDeaths()+"");
+        hits.setText(score.getHits()+"");
 
         return rowView;
     }

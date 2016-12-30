@@ -62,6 +62,8 @@ public class ResultsDialogFragment extends DialogFragment implements View.OnClic
         points.setText(getText(R.string.points));
         TextView deaths = (TextView)header.findViewById(R.id.snakeDeaths);
         deaths.setText(getText(R.string.deaths));
+        TextView hits = (TextView)header.findViewById(R.id.snakeHits);
+        hits.setText(getText(R.string.hits));
         listView.addHeaderView(header);
     }
 

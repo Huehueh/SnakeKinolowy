@@ -21,8 +21,8 @@ public class Assets {
 
     public static MediaPlayer mediaPlayer;
     public static SoundPool soundPool;
-    public static Bitmap head, segment, wall, meal, laser, head_enemy, segment_enemy;
-    public static int laserId, eatId, deathId;
+    public static Bitmap head, segment, wall, meal, laser, head_enemy, segment_enemy, dots;
+    public static int laserId, eatId, deathId, endGameId;
 
     private final static String TAG = "Assets";
 
@@ -55,10 +55,12 @@ public class Assets {
         laser = loadBitmap("laser.png");
         head_enemy = loadBitmap("head_enemy.png");
         segment_enemy = loadBitmap("segment_enemy.png");
+        dots = loadBitmap("kropki.png");
 
         laserId = loadSound("hit.wav");
         eatId = loadSound("eat.wav");
         deathId = loadSound("cat.wav");
+        endGameId = loadSound("ta_da.wav");
 
         Log.v(TAG, "Assets loaded");
     }

@@ -1,8 +1,11 @@
 package com.example.user.snake.graphics;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Shader;
 
 import com.example.user.snake.communication.Answers.Point;
 
@@ -16,6 +19,13 @@ public class Painter {
     Paint textPaint;
     Box box, boardBox;
     int width, height;
+    public static int textSize;
+
+    public enum TextStyle
+    {
+        NORMAL,
+        WONSZ
+    }
 
     public Painter(Canvas canvas, int x, int y)
     {
@@ -25,15 +35,37 @@ public class Painter {
         box = new Box();
         boardBox = new Box(Color.BLACK);
         boardBox.setBounds(0, 0, x, y);
-        textPaint = new Paint();
-        textPaint.setColor(Color.GRAY);
-        textPaint.setStyle(Paint.Style.FILL);
-        textPaint.setTextAlign(Paint.Align.CENTER);
-        textPaint.setTextSize(Box.getMultiplier()*2);
+
     }
 
-    public void paintText(String text)
+    private void setTextStyle(TextStyle style)
     {
+        if(textPaint == null)
+        {
+            textPaint = new Paint();
+        }
+
+        textPaint.reset();
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setTextSize(textSize);
+        textPaint.setFakeBoldText(true);
+
+        switch (style)
+        {
+            case NORMAL:
+                textPaint.setColor(Color.GRAY);
+                break;
+            case WONSZ:
+                Bitmap bitmap = Assets.dots;
+                Shader shader = new BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+                textPaint.setShader(shader);
+                break;
+        }
+    }
+
+    public void paintText(String text, TextStyle style)
+    {
+        setTextStyle(style);
         canvas.drawText(text, width/2, height/2, textPaint);
     }
 

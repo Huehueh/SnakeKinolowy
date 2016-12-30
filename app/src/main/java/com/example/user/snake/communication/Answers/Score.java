@@ -16,7 +16,12 @@ public class Score {
         return deaths;
     }
 
+    public int getHits() {
+        return hits;
+    }
+
     String name;
     int points;
     int deaths;
+    int hits;
 }
