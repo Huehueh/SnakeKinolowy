@@ -9,8 +9,8 @@ class Player{
     int id;
     string name;
     int points;
-    int hits;
-    int deaths;
+    int hits=0;
+    int deaths=0;
 
     bool dead = false;
     double time2Resp = 10;

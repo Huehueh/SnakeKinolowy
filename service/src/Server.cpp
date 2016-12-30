@@ -132,6 +132,8 @@ void Server::move(int id, http_request message)
             }else{
                 notification = 4;
             }
+        }else{
+            notification = 5;
         }
         vector<Point> meal, wall;
         meal.push_back(map.getMeal());
