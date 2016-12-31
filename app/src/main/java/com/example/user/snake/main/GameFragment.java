@@ -348,6 +348,10 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         if(snakeMessage != null) {
             switch (snakeMessage.getSnakeNotification()) {
                 case OZYLES:
+                    if(currentState.getName() == GameState.StateName.waiting)
+                    {
+                        setCurrentState(GameState.StateName.play);
+                    }
                     break;
                 case UMARLES:
                     setCurrentState(GameState.StateName.death);
