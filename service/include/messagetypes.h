@@ -57,7 +57,6 @@ struct OutMoveJson{
     std::vector<Point> meal;
     std::vector<Point> wall;
 
-
     OutMoveJson(/*int id_,*/ int notification_, Player snake_, std::vector<Player > enemies_, std::vector<Point> meal_, std::vector<Point> wall_):snake(snake_){
         //id = id_;
         notification = notification_;
@@ -82,6 +81,7 @@ struct OutMoveJson{
                 enemiesJson.push_back(enemies[i].AsJSON());
         }
         result[U("enemies")] = web::json::value::array(enemiesJson);
+        result[U("points")] = web::json::value::number(snake.Points());
         return result;
     }
 };

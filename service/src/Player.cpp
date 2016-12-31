@@ -130,7 +130,7 @@ int Player::Move(Map &map, int direction, bool shoot, vector<Player> &players){
 	    //sprawdz czas
         std::chrono::time_point<std::chrono::system_clock> date = std::chrono::system_clock::now();
         double diff = std::difftime(std::chrono::system_clock::to_time_t(date), death_time);
-        if(diff>time2Resp){
+        if(diff>settings->time2resp){
             dead = false;
             happens = 1;
         }

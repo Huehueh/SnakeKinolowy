@@ -13,7 +13,6 @@ class Player{
     int deaths=0;
 
     bool dead = false;
-    double time2Resp = 10;
     std::time_t death_time;
     static Point stayOnMap(Map map, Point there);
     static Point direction2Point(int dir);
