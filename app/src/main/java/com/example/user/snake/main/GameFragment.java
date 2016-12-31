@@ -30,6 +30,7 @@ import com.example.user.snake.assets.Assets;
 import com.example.user.snake.user_interface.GameView;
 import com.example.user.snake.states.GameState;
 
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 
@@ -328,9 +329,14 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                     message = restTemplate.postForObject(steering.getQuery(), steering, SnakeMessage.class);
                 }
             }
-            catch(RestClientException e)
+            catch(ResourceAccessException e)
             {
                 e.printStackTrace();
+            }
+            catch(HttpClientErrorException e)
+            {
+                e.printStackTrace();
+                mainActivity.startLoginActivity();
             }
             return message;
 
