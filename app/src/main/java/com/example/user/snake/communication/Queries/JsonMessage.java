@@ -1,33 +1,47 @@
 package com.example.user.snake.communication.Queries;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by user on 21.12.2016.
  */
 public class JsonMessage {
     protected String query = null;
-    protected static int id;
-    protected static String address;
+    protected static Integer id;
+    protected static String address = null;
     protected String TAG = "";
+    protected String message = null;
 
     protected JsonMessage(String _query)
     {
         query = _query;
+        if(id != null && address != null)
+        {
+            setQuery();
+        }
     }
 
-    public String getQuery()
+    public void setQuery()
     {
         StringBuilder builder = new StringBuilder();
         builder.append(address);
         builder.append(query);
         builder.append(id);
         //Log.v(TAG, builder.toString());
-        return builder.toString();
+        message = builder.toString();
+    }
+
+    public String getQuery()
+    {
+        if(message== null)
+        {
+            setQuery();
+        }
+        return message;
     }
 
     public static int getId()
@@ -40,7 +54,7 @@ public class JsonMessage {
         id = _id;
     }
 
-    public void setAddress(String ip) {
+    public static void setAddress(String ip) {
         StringBuilder builder = new StringBuilder();
         builder.append("http://");
         builder.append(ip);

@@ -2,6 +2,9 @@ package com.example.user.snake.states;
 
 import android.util.Log;
 
+import com.example.user.snake.assets.Assets;
+import com.example.user.snake.communication.Answers.Board;
+import com.example.user.snake.communication.Answers.Snake;
 import com.example.user.snake.communication.Direction;
 import com.example.user.snake.user_interface.Box;
 import com.example.user.snake.main.GameFragment;
@@ -32,10 +35,7 @@ public abstract class GameState {
     }
     protected StateName name;
 
-    //RYSOWANIE
-    Point[] segments, meals, walls, lasers;
-    List<Point []> enemies;
-    public static Point boardSize;
+    Board board;
     public boolean news = false;
 
     //STEROWANIE
@@ -81,7 +81,10 @@ public abstract class GameState {
         Log.v("STATE", getName().toString());
     }
 
-    public abstract void render(Painter g);
+    public synchronized void render(Painter g)
+    {
+        g.paintBoard(board);
+    }
 
     public StateName getName()
     {
@@ -97,53 +100,23 @@ public abstract class GameState {
 
     public abstract boolean addSteering(Direction dir);
 
-    public void setStates(SnakeMessage snakeMessage)
+    public void setBoard(SnakeMessage snakeMessage)
     {
-        //RYSOWANIE
-        segments = snakeMessage.getSnake().transformToArray(boardSize);
-        enemies = new ArrayList<>();
-        for (int i = 0; i< snakeMessage.getEnemies().length; i++) {
-            enemies.add(snakeMessage.getEnemies()[i].transformToArray(boardSize));
+        if(board != null) {
+            board.eraseBoard();
+            board.insertSnake(snakeMessage.getSnake(), false);
+            for (Snake enemy : snakeMessage.getEnemies()) {
+                board.insertSnake(enemy, true);
+            }
+            board.insertMeal(snakeMessage.getMeal());
+            board.insertWall(snakeMessage.getWall());
+            news = true;
         }
-        walls = snakeMessage.getWall();
-        meals = snakeMessage.getMeal();
-        lasers = snakeMessage.getSnake().getLaserArray(boardSize);
-        for (int i = 0; i< snakeMessage.getEnemies().length; i++) {
-            lasers = ArrayUtils.addAll(lasers, snakeMessage.getEnemies()[i].getLaserArray(boardSize));
-        }
-        news = true;
     }
 
     public void setInitialState(User user)
     {
-        segments = user.getPositions();
-        boardSize = user.getSize();
+        board = new Board(user.getSize().getX(), user.getSize().getY());
+        board.insertSnake(user.getPositions());
     }
-
-    //painting
-    protected void renderSnake(Painter p)
-    {
-        p.paintWithHead(segments);
-    }
-
-    protected void renderEnemies(Painter p)
-    {
-        p.paintWithHead(enemies);
-    }
-
-    protected void renderWalls(Painter p)
-    {
-        p.paint(walls, Box.BoxType.WALL);
-    }
-
-    protected void renderLaser(Painter p)
-    {
-        p.paint(lasers, Box.BoxType.LASER);
-    }
-
-    protected void renderMeal(Painter p)
-    {
-        p.paint(meals, Box.BoxType.MEAL);
-    }
-
 }

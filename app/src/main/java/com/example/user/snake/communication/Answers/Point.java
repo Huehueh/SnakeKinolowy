@@ -24,38 +24,37 @@ public class Point implements Serializable{
 
     }
 
-
     public Point (int x, int y)
     {
         this.x = x;
         this.y = y;
     }
 
-    public Point(Point previous, Direction direction, Point board)
+    public Point(Point previous, Direction direction)
     {
         this(previous.getX(), previous.getY());
         switch (direction)
         {
             case DOWN:
-                moveDown(board.getY());
+                moveDown();
                 break;
             case RIGHT:
-                moveRight(board.getX());
+                moveRight();
                 break;
             case UP:
-                moveUp(board.getY());
+                moveUp();
                 break;
             case LEFT:
-                moveLeft(board.getX());
+                moveLeft();
                 break;
         }
     }
 
-    private void moveUp(int sizeY)
+    private void moveUp()
     {
         if(y == 0)
         {
-            y = sizeY - 1;
+            y = Board.getSizeY() - 1;
         }
         else
         {
@@ -63,9 +62,9 @@ public class Point implements Serializable{
         }
     }
 
-    private void moveDown(int sizeY)
+    private void moveDown()
     {
-        if(y == sizeY - 1)
+        if(y == Board.getSizeY() - 1)
         {
             y = 0;
         }
@@ -75,9 +74,9 @@ public class Point implements Serializable{
         }
     }
 
-    private void moveRight(int sizeX)
+    private void moveRight()
     {
-        if(x == sizeX -1)
+        if(x == Board.getSizeX() -1)
         {
             x = 0;
         }
@@ -87,11 +86,11 @@ public class Point implements Serializable{
         }
     }
 
-    private void moveLeft(int sizeX)
+    private void moveLeft()
     {
         if(x == 0)
         {
-            x = sizeX - 1;
+            x = Board.getSizeX() - 1;
         }
         else
         {

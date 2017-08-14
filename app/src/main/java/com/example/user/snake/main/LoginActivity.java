@@ -133,7 +133,7 @@ public class LoginActivity extends Activity{
         protected void onPreExecute() {
             super.onPreExecute();
             username = new Username(getMyId(), getValue(BundleNames.LOGIN));
-            username.setAddress(getValue(BundleNames.IP));
+            JsonMessage.setAddress(getValue(BundleNames.IP));
             restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         }

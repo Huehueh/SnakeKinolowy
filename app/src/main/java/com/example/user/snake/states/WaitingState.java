@@ -22,7 +22,7 @@ public class WaitingState extends GameState {
 
     @Override
     public void render(Painter g) {
-        g.paintBoard();
+        g.paintBoard(board);
         g.paintText("Waiting for" + System.lineSeparator() + " more players", Painter.TextStyle.WONSZ);
     }
 

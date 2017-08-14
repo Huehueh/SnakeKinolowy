@@ -39,21 +39,48 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/showResultsButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/results"
-        android:layout_above="@+id/exitButton"
         android:layout_below="@id/buttonPanel"
-        style="@style/WonszButtonStyle"/>
+        android:weightSum="1"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@id/exitButton"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/laser_image_height"
-        android:text="@string/exit"
-        android:layout_alignParentBottom="true"
-        style="@style/WonszButtonStyle"/>
+        <Button
+            android:id="@+id/showResultsButton"
+            android:layout_width="match_parent"
+            android:layout_weight="0.3"
+            android:layout_height="0dp"
+            android:text="@string/results" />
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="match_parent"
+            android:layout_weight="0.3"
+            android:layout_height="0dp"
+            android:text="@string/exit" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/pingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Ping server"/>
+
+            <TextView
+                android:id="@+id/pingText"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

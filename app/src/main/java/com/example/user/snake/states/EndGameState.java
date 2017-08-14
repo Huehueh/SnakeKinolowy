@@ -25,11 +25,7 @@ public class EndGameState extends GameState {
 
     @Override
     public void render(Painter g) {
-        g.paintBoard();
-        renderMeal(g);
-        renderWalls(g);
-        renderEnemies(g);
-        renderSnake(g);
+        super.render(g);
         g.paintText("THE END", Painter.TextStyle.WONSZ);
 
     }

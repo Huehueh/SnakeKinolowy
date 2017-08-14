@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.example.user.snake.R;
 import com.example.user.snake.communication.Answers.User;
 import com.example.user.snake.assets.Assets;
+
+import java.io.IOException;
 
 
 public class MainActivity extends Activity {

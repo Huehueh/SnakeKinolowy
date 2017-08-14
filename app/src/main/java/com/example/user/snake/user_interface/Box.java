@@ -13,19 +13,8 @@ import com.example.user.snake.assets.Assets;
 public class Box {
     private Paint boardPaint;
     protected Rect bounds;
-    private static int multiplier = 1;
-    private Bitmap bitmap = null;
-
-    public enum BoxType
-    {
-        HEAD,
-        SEGMENT,
-        WALL,
-        MEAL,
-        LASER,
-        HEAD_ENEMY,
-        SEGMENT_ENEMY
-    }
+    public static int multiplier = 1;
+    public Bitmap bitmap = null;
 
     public Box()
     {
@@ -39,47 +28,9 @@ public class Box {
         setColor(color);
     }
 
-    public static void setMultiplier(int i)
-    {
-        multiplier = i;
-    }
-
-    public static int getMultiplier()
-    {
-        return multiplier;
-    }
-
     public void setColor(int i)
     {
         boardPaint.setColor(i);
-    }
-
-    public void setType(BoxType type)
-    {
-        switch (type)
-        {
-            case HEAD:
-                bitmap = Assets.head;
-                break;
-            case SEGMENT:
-                bitmap = Assets.segment;
-                break;
-            case WALL:
-                bitmap = Assets.wall;
-                break;
-            case MEAL:
-                bitmap = Assets.meal;
-                break;
-            case LASER:
-                bitmap = Assets.laser;
-                break;
-            case HEAD_ENEMY:
-                bitmap = Assets.head_enemy;
-                break;
-            case SEGMENT_ENEMY:
-                bitmap = Assets.segment_enemy;
-                break;
-        }
     }
 
     public void setBounds(int i, int j, int i1, int j1)

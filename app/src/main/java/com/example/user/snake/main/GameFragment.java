@@ -20,6 +20,7 @@ import com.example.user.snake.communication.Answers.Score;
 import com.example.user.snake.communication.Answers.ScoreMessage;
 import com.example.user.snake.communication.Answers.SendingTask;
 import com.example.user.snake.communication.Answers.Point;
+import com.example.user.snake.communication.Queries.JsonMessage;
 import com.example.user.snake.communication.Queries.LogOut;
 import com.example.user.snake.communication.Answers.SnakeMessage;
 import com.example.user.snake.communication.Queries.Reset;
@@ -34,6 +35,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 
+import java.util.Calendar;
+
 /**
  * Created by user on 08.11.2016.
  */
@@ -46,10 +49,11 @@ public class GameFragment extends Fragment implements View.OnClickListener{
     SendingTask task = null;
     public GameState currentState = null;
     public boolean running;
+    public GameView gameView;
 
     //layout
     LinearLayout boardView;
-    Button resetButton;
+    Button resetButton, pingButton;
     TextView pointsTextView;
 
     public static String TAG = "GameFragment";
@@ -68,6 +72,8 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         resetButton = (Button) rootView.findViewById(R.id.resetButton);
         resetButton.setOnClickListener(this);
         pointsTextView = (TextView) rootView.findViewById(R.id.pointsTextView);
+        pingButton = (Button) rootView.findViewById(R.id.pingButton);
+        pingButton.setOnClickListener(this);
 
         return rootView;
     }
@@ -84,12 +90,25 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         sendMessageThread.start();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        gameView.resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        gameView.pause();
+    }
+
     private void initializeData(User user)
     {
         currentState.setInitialState(mainActivity.user);
         deltaTime = (int)(1000/user.getFrameRate());
         TIME_TO_RESP = user.getTime2resp();
-        if(user.getLogin().equals(getString(R.string.admin_name)))
+        String login = user.getLogin();
+        if(login.substring(0, Math.min(login.length(), 5)).equals(getString(R.string.admin_name)))
         {
             resetButton.setVisibility(View.VISIBLE);
         }
@@ -120,11 +139,11 @@ public class GameFragment extends Fragment implements View.OnClickListener{
 
     public void putBoard(Point boardSize)
     {
-        GameView board = new GameView(this, getActivity(), boardSize);
-        boardView.setLayoutParams(new RelativeLayout.LayoutParams(board.getBoardWidth(), board.getBoardWidth()));
-        boardView.addView(board);
+        gameView = new GameView(this, getActivity(), boardSize);
+        boardView.setLayoutParams(new RelativeLayout.LayoutParams(gameView.getBoardWidth(), gameView.getBoardWidth()));
+        boardView.addView(gameView);
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(board.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(gameView.getWindowToken(), 0);
     }
 
     //KOMUNIKACJA
@@ -145,6 +164,10 @@ public class GameFragment extends Fragment implements View.OnClickListener{
             case R.id.resetButton:
                 task = new ResetTask();
                 task.execute();
+                break;
+            case R.id.pingButton:
+                Log.v("PING", "klikam");
+
                 break;
         }
     }
@@ -280,7 +303,6 @@ public class GameFragment extends Fragment implements View.OnClickListener{
 
     public void understandScoreMessage(ScoreMessage message)
     {
-
         setCurrentState(GameState.StateName.pause);
         if(message!= null) {
             for (Score score : message.getScores()) {
@@ -314,6 +336,7 @@ public class GameFragment extends Fragment implements View.OnClickListener{
     public class SendSteeringTask extends SendingTask<SnakeMessage> {
 
         Steering steering;
+        long startTime, endTime;
 
         @Override
         protected void onPreExecute() {
@@ -326,7 +349,9 @@ public class GameFragment extends Fragment implements View.OnClickListener{
             SnakeMessage message = null;
             try{
                 if(running) {
+                    startTime = Calendar.getInstance().getTimeInMillis();
                     message = restTemplate.postForObject(steering.getQuery(), steering, SnakeMessage.class);
+
                 }
             }
             catch(ResourceAccessException e)
@@ -339,11 +364,14 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                 mainActivity.startLoginActivity();
             }
             return message;
-
         }
 
         @Override
         protected void onPostExecute(SnakeMessage snakeMessage) {
+            endTime = Calendar.getInstance().getTimeInMillis();
+            long diffInMs = endTime - startTime;
+            if (diffInMs>180)
+                Log.v("PING", diffInMs + " ms");
             understandSnakeMessage(snakeMessage);
             task = null;
         }
@@ -372,7 +400,9 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                     setCurrentState(GameState.StateName.waiting);
                     break;
             }
-            currentState.setStates(snakeMessage);
+
+            currentState.setBoard(snakeMessage);
+
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

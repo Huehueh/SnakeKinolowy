@@ -31,12 +31,7 @@ public class DeathState extends GameState {
 
     @Override
     public synchronized void render(Painter g) {
-        g.paintBoard();
-        renderMeal(g);
-        renderWalls(g);
-        renderEnemies(g);
-        renderSnake(g);
-        renderLaser(g);
+        super.render(g);
         g.paintText("You are dead \n" + deathCount, Painter.TextStyle.WONSZ);
 
     }

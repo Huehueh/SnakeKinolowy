@@ -22,17 +22,6 @@ public class PlayState extends GameState {
         gameFragment.running = true;
     }
 
-
-    @Override
-    public synchronized void render(Painter g) {
-        g.paintBoard();
-        renderLaser(g);
-        renderMeal(g);
-        renderWalls(g);
-        renderEnemies(g);
-        renderSnake(g);
-    }
-
     @Override
     public void sendLaser() {
         laser = true;
@@ -50,6 +39,11 @@ public class PlayState extends GameState {
             }
         }
         return true;
+    }
+
+    @Override
+    public synchronized void render(Painter g) {
+        super.render(g);
     }
 
     @Override

@@ -6,9 +6,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.util.Log;
 
 import com.example.user.snake.assets.Assets;
+import com.example.user.snake.communication.Answers.Board;
 import com.example.user.snake.communication.Answers.Point;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.List;
 
@@ -36,7 +39,6 @@ public class Painter {
         box = new Box();
         boardBox = new Box(Color.BLACK);
         boardBox.setBounds(0, 0, x, y);
-
     }
 
     private void setTextStyle(TextStyle style)
@@ -44,23 +46,17 @@ public class Painter {
         if(textPaint == null)
         {
             textPaint = new Paint();
+            textPaint.reset();
+            textPaint.setTextAlign(Paint.Align.CENTER);
+            textPaint.setTextSize(textSize);
+            textPaint.setFakeBoldText(true);
         }
 
-        textPaint.reset();
-        textPaint.setTextAlign(Paint.Align.CENTER);
-        textPaint.setTextSize(textSize);
-        textPaint.setFakeBoldText(true);
-
-        switch (style)
-        {
-            case NORMAL:
-                textPaint.setColor(Color.GRAY);
-                break;
-            case WONSZ:
-                Bitmap bitmap = Assets.dots;
-                Shader shader = new BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
-                textPaint.setShader(shader);
-                break;
+        if(style == TextStyle.WONSZ) {
+            textPaint.setShader(new BitmapShader(Assets.dots, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT));
+        }
+        else {
+            textPaint.setColor(Color.GRAY);
         }
     }
 
@@ -71,64 +67,49 @@ public class Painter {
     }
 
     //plansze
-    public void paintBoard()
+    public void paintBoard(Board board)
     {
         boardBox.draw(canvas);
-    }
-
-    //jeden element
-    public void paint(Point position, Box.BoxType type)
-    {
-        box.setType(type);
-        box.setBounds(position.getX(), position.getY());
-        box.draw(canvas);
-
-    }
-
-    //np. sciany, jedzenie
-    public void paint(Point [] positions, Box.BoxType type)
-    {
-        if(positions != null) {
-            for (Point position : positions) {
-                paint(position, type);
+        for (int i=0; i<board.board.length; i++) {
+            for (int j=0; j< board.board[i].length; j++) {
+                paint(i, j, board.board[i][j]);
             }
         }
     }
 
-    //wonsze
-    public void paintWithHead(Point [] positions)
+    public void paint(int x, int y, Board.BoxType type)
     {
-        if(positions != null) {
-            for (int i = 0; i < positions.length; i++) {
-                if (i == 0) {
-                    paint(positions[i], Box.BoxType.HEAD);
-                } else {
-                    paint(positions[i], Box.BoxType.SEGMENT);
-                }
+        if(type != null) {
+            box.bitmap = null;
+            switch (type) {
+                case HEAD:
+                    box.bitmap = Assets.head;
+                    break;
+                case BODY:
+                    box.bitmap = Assets.segment;
+                    break;
+                case ENEMY_BODY:
+                    box.bitmap = Assets.segment_enemy;
+                    break;
+                case ENEMY_HEAD:
+                    box.bitmap = Assets.head_enemy;
+                    break;
+                case MEAL:
+                    box.bitmap = Assets.meal;
+                    break;
+                case WALL:
+                    box.bitmap = Assets.wall;
+                    break;
+                case LASER:
+                    box.bitmap = Assets.laser;
+                    break;
+                default:
+                    break;
             }
-        }
-    }
 
-    private void paintEnemyWithHead(Point [] positions)
-    {
-        for (int i = 0; i< positions.length; i++) {
-            if(i==0)
-            {
-                paint(positions[i], Box.BoxType.HEAD_ENEMY);
-            }
-            else{
-                paint(positions[i], Box.BoxType.SEGMENT_ENEMY);
-            }
-        }
-    }
-
-
-    //wrogowie
-    public void paintWithHead(List<Point[]> positions)
-    {
-        if(positions != null) {
-            for (Point[] position : positions) {
-                paintEnemyWithHead(position);
+            if (box.bitmap != null) {
+                box.setBounds(x, y);
+                box.draw(canvas);
             }
         }
     }

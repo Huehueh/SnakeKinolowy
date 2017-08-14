@@ -17,6 +17,8 @@ import com.example.user.snake.communication.Answers.Point;
  */
 public class GameView extends SurfaceView implements Runnable {
 
+    private Thread gameThread;
+
     private int boardWidth;
     private Painter graphics;
     private Bitmap gameImage;
@@ -25,7 +27,8 @@ public class GameView extends SurfaceView implements Runnable {
     private InputHandler inputHandler;
     private Canvas gameCanvas;
     Rect gameImageSrc, gameImageDst;
-    private Thread gameThread;
+    private SurfaceHolder surfaceHolder;
+    private boolean running = false;
 
     public GameView(GameFragment gameFragment, Context context, Point boardSize) {
         super(context);
@@ -40,12 +43,12 @@ public class GameView extends SurfaceView implements Runnable {
         gameCanvas = new Canvas(gameImage);
         graphics = new Painter(gameCanvas, boardWidth, boardWidth);
 
-        SurfaceHolder holder = getHolder();
-        holder.addCallback(new SurfaceHolder.Callback() {
+        surfaceHolder = getHolder();
+        surfaceHolder.addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 initInput();
-                initGame();
+                resume();
             }
 
             @Override
@@ -55,11 +58,9 @@ public class GameView extends SurfaceView implements Runnable {
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-                pauseGame();
+                pause();
             }
         });
-
-
     }
 
     private void createParameters(int x, int y) {
@@ -70,11 +71,11 @@ public class GameView extends SurfaceView implements Runnable {
         if (screenSize.x < screenSize.y) {
             boardWidth = screenSize.x;
             Painter.textSize = x*4;
-            Box.setMultiplier((int) Math.floor((double) boardWidth / x));
+            Box.multiplier = (int) Math.floor((double) boardWidth / x);
         } else {
             boardWidth = screenSize.y;
             Painter.textSize = y*4;
-            Box.setMultiplier((int) Math.floor((double) boardWidth / y));
+            Box.multiplier = (int) Math.floor((double) boardWidth / y);
         }
     }
 
@@ -90,21 +91,23 @@ public class GameView extends SurfaceView implements Runnable {
         setOnTouchListener(inputHandler);
     }
 
-    private void initGame() {
+    public void resume() {
+        running = true;
         gameThread = new Thread(this, "Game Thread");
         gameThread.start();
     }
 
-    private void pauseGame() {
-        while (gameThread.isAlive()) {
+    public void pause() {
+        running = false;
+        while (true) {
             try {
                 gameThread.join();
                 break;
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
             }
         }
     }
-
 
     private void render()
     {
@@ -113,11 +116,11 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void renderGameImage() {
-        Canvas screen = getHolder().lockCanvas();
+        Canvas screen = surfaceHolder.lockCanvas();
         if(screen != null) {
             screen.getClipBounds(gameImageDst);
             screen.drawBitmap(gameImage, gameImageSrc, gameImageDst, null);
-            getHolder().unlockCanvasAndPost(screen);
+            surfaceHolder.unlockCanvasAndPost(screen);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.user.snake.assets;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
@@ -66,13 +67,15 @@ public class Assets {
     private static Bitmap loadBitmap(String filename)
     {
         InputStream inputStream = null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        Bitmap bitmap = null;
         try {
             inputStream = MainActivity.assets.open(filename);
+            bitmap = BitmapFactory.decodeStream(inputStream, null, options);
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
         return bitmap;
     }
 
